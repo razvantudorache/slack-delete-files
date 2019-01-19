@@ -10,7 +10,10 @@
     var me = this;
 
     me.$onInit = function () {
-
+      $http.get("/auth", {
+      }, function () {
+        debugger
+      })
     };
   }
 })();
