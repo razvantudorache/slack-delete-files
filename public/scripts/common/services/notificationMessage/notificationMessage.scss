@@ -1,0 +1,29 @@
+.noty_body {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.noty_effects_open {
+  opacity: 0;
+  transform: translateY(0);
+  animation: noty_anim_in 0.5s linear;
+}
+
+.noty_effects_close {
+  animation: noty_anim_out 0.5s linear;
+}
+
+@keyframes noty_anim_in {
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes noty_anim_out {
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}

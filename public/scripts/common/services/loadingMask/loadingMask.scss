@@ -1,0 +1,8 @@
+.loadingMask {
+  display: none;
+  position: fixed;
+  top: 55px; // top bar height
+  width: 100%;
+  z-index: 1000;
+  bottom: 0;
+}

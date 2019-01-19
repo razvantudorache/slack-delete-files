@@ -1,0 +1,93 @@
+@import "mixins";
+@import "colorsVar";
+@import "fonts";
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: $lightColor;
+  font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.applicationContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#loading-bar-spinner {
+  display: none;
+}
+
+// General classes
+md-input-container {
+  label {
+    font-weight: 500;
+    font-size: 15px;
+    color: $materialColorGrey800
+  }
+  input {
+    color: $materialColorGrey800;
+    border-color: $materialColorGrey500;
+  }
+}
+
+.navigationToolbar {
+  margin: 2px;
+  @include shadowLevel-1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+md-dialog {
+  .dialogTitle {
+    border-bottom: 1px solid $borderColor;
+    height: auto;
+    font-size: 20px;
+    color: $materialColorGrey800;
+    margin: 20px 25px 5px 25px;
+  }
+  .dialogContent {
+    padding: 25px 25px 0 25px;
+    flex: 1;
+  }
+  .dialogToolbar {
+    border-top: 1px solid $borderColor;
+    margin: 5px 25px 0 25px;
+    height: 45px;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+md-content {
+  background-color: $lightColor;
+}
+
+md-toolbar {
+  z-index: 1;
+  min-height: 50px;
+  margin-bottom: 2px;
+  @include shadowLevel-1;
+}
+.md-toolbar-tools {
+  height: 50px;
+}
+
+.md-button {
+  line-height: 30px;
+  min-height: 30px;
+}

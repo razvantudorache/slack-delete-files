@@ -1,0 +1,41 @@
+{
+  "extends": "eslint:recommended",
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "protractor": true
+  },
+  "globals": {
+    "angular": 1,
+    "kendo": 1,
+    "console": 1,
+    "jsModel": 1,
+    "_": 1,
+    "jQuery": 1,
+    "translations": 1,
+    "formats": 1,
+    "moment": 1,
+    "Noty": 1,
+    "agGrid": 1
+  },
+  "rules": {
+    "eqeqeq": 2,
+    "no-empty-function": 2,
+    "no-eq-null": 2,
+    "no-global-assign": 2,
+    "no-lone-blocks": 2,
+    "no-implicit-globals": 2,
+    "strict": 2,
+    "no-extra-parens": 1,
+    "valid-jsdoc": 1,
+    "dot-notation": 1,
+    "no-unused-vars": 1,
+    "no-debugger": 1,
+    "no-alert": 1,
+    "no-console": 0,
+    "camelcase": 1,
+    "comma-dangle": 1,
+    "semi": 1
+  }
+}

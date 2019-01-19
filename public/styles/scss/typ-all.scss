@@ -1,0 +1,181 @@
+// Source: public/styles/scss/general.scss
+@import "mixins";
+@import "colorsVar";
+@import "fonts";
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: $lightColor;
+  font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.applicationContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#loading-bar-spinner {
+  display: none;
+}
+
+// General classes
+md-input-container {
+  label {
+    font-weight: 500;
+    font-size: 15px;
+    color: $materialColorGrey800
+  }
+  input {
+    color: $materialColorGrey800;
+    border-color: $materialColorGrey500;
+  }
+}
+
+.navigationToolbar {
+  margin: 2px;
+  @include shadowLevel-1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+md-dialog {
+  .dialogTitle {
+    border-bottom: 1px solid $borderColor;
+    height: auto;
+    font-size: 20px;
+    color: $materialColorGrey800;
+    margin: 20px 25px 5px 25px;
+  }
+  .dialogContent {
+    padding: 25px 25px 0 25px;
+    flex: 1;
+  }
+  .dialogToolbar {
+    border-top: 1px solid $borderColor;
+    margin: 5px 25px 0 25px;
+    height: 45px;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+md-content {
+  background-color: $lightColor;
+}
+
+md-toolbar {
+  z-index: 1;
+  min-height: 50px;
+  margin-bottom: 2px;
+  @include shadowLevel-1;
+}
+.md-toolbar-tools {
+  height: 50px;
+}
+
+.md-button {
+  line-height: 30px;
+  min-height: 30px;
+}
+
+// Source: public/scripts/common/components/agGrid/agGrid.scss
+ag-grid {
+  height: 100%;
+  flex: 1;
+  .agGrid {
+    height: 100%;
+    .ag-header {
+      margin-top: 1px;
+      @include box-shadowLevel1;
+    }
+    .ag-body {
+      margin-top: 2px;
+      .actionColumn {
+        .actionList {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          .action {
+            cursor: pointer;
+            display: inline-block;
+            &:before {
+              font-family: 'Font Awesome 5 Free';
+              font-size: 20px;
+            }
+            &.editRow {
+              &:before {
+                content: '\f044';
+                margin-right: 15px;
+              }
+            }
+            &.deleteRow {
+              &:before {
+                content: '\f2ed';
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .ag-theme-material {
+    font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+  }
+}
+
+
+// Source: public/scripts/common/services/loadingMask/loadingMask.scss
+.loadingMask {
+  display: none;
+  position: fixed;
+  top: 55px; // top bar height
+  width: 100%;
+  z-index: 1000;
+  bottom: 0;
+}
+
+// Source: public/scripts/common/services/notificationMessage/notificationMessage.scss
+.noty_body {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.noty_effects_open {
+  opacity: 0;
+  transform: translateY(0);
+  animation: noty_anim_in 0.5s linear;
+}
+
+.noty_effects_close {
+  animation: noty_anim_out 0.5s linear;
+}
+
+@keyframes noty_anim_in {
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes noty_anim_out {
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
