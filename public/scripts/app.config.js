@@ -20,7 +20,7 @@
         url: '/main',
         templateUrl: 'scripts/main/main.template.html',
         controller: 'mainController'
-      })
+      });
   }
 
   httpConfig.$inject = ['$httpProvider'];
