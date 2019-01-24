@@ -20,14 +20,14 @@
     "lodash": "^4.17.5",
     "font-awesome": "Font-Awesome#5.0.8",
     "noty": "3.1.4",
-    "ag-grid": "16.0.1"
+    "ag-grid": "20.0.0"
   },
   "appPath": "public",
   "moduleName": "slackDeleteFiles",
   "overrides": {
     "ag-grid": {
       "main": [
-        "dist/ag-grid.js"
+        "dist/ag-grid-community.js"
       ]
     },
     "font-awesome": {

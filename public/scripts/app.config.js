@@ -19,7 +19,8 @@
       .state('main', {
         url: '/main',
         templateUrl: 'scripts/main/main.template.html',
-        controller: 'mainController'
+        controller: 'mainController',
+        controllerAs: "main"
       });
   }
 

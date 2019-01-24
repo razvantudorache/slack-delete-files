@@ -62,6 +62,7 @@ app.get("/authRedirect", function (req, res) {
   });
 });
 
+// route to hide sign in button at successful authentication
 app.get("/checkAuthentication", function (req, res) {
   var responseStatus = {
     "success": true
@@ -76,7 +77,8 @@ app.get("/checkAuthentication", function (req, res) {
   res.json(responseStatus);
 });
 
-app.get("/getFilesList", function (req, res) {
+// route to get files
+app.get("/filesList", function (req, res) {
 
   if (token) {
     var options = {
@@ -93,7 +95,24 @@ app.get("/getFilesList", function (req, res) {
         if (error) {
           console.log(error);
         } else {
-          res.json(jsonResponse);
+          var files = [];
+          for (var i = 0; i < jsonResponse.files.length; i++) {
+            var file = jsonResponse.files[i];
+
+            if (!file.state) {
+              files.push({
+                id: file.id,
+                name: file.name,
+                type: file.filetype,
+                thumb: file.thumb
+              })
+            }
+          }
+
+          res.json({
+            results: files,
+            total: files.length
+          });
         }
       });
   }

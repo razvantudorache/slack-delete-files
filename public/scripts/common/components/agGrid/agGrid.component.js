@@ -69,17 +69,19 @@
      * @return {void}
      */
     function requestGridData(params) {
-      $http.get(me.gridProperties.url, {
-        params: {
-          start: params.startRow,
-          limit: $scope.gridOptions.paginationPageSize
-        }
-      }).then(function (response) {
-        var results = response.data.docs;
-        var total = response.data.total;
+      if (me.gridProperties.url) {
+        $http.get(me.gridProperties.url, {
+          params: {
+            start: params.startRow,
+            limit: $scope.gridOptions.paginationPageSize
+          }
+        }).then(function (response) {
+          var results = response.data.results;
+          var total = response.data.total;
 
-        params.successCallback(results, total);
-      });
+          params.successCallback(results, total);
+        });
+      }
     }
 
     function addRowActionsHandlers() {
