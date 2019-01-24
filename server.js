@@ -10,6 +10,7 @@ var path = require('path');
 var port = process.env.PORT || 3000;
 
 var code = "";
+var token = "";
 
 // load resources from the distribution folder on the production
 if (!process.env.PRODUCTION) {
@@ -37,93 +38,63 @@ app.get("/authRedirect", function (req, res) {
   code = req.query.code;
 
   var options = {
-    uri: 'https://slack.com/api/oauth.access?code='
-      + req.query.code +
-      '&client_id=' + process.env.CLIENT_ID +
-      '&client_secret=' + process.env.CLIENT_SECRET +
-      '&redirect_uri=' + process.env.REDIRECT_URI,
+    url: 'https://slack.com/api/oauth.access',
+    qs: {
+      code: req.query.code,
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET,
+      redirect_uri: process.env.REDIRECT_URI
+    },
     method: 'GET'
   };
+
   request(options, function (error, response, body) {
-    var JSONresponse = JSON.parse(body);
-    if (!JSONresponse.ok) {
-      console.log(JSONresponse);
-      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
+    var jsonResponse = JSON.parse(body);
+
+    if (!jsonResponse.ok) {
+      console.log(jsonResponse);
+      res.send("Error encountered: \n" + JSON.stringify(jsonResponse)).status(200).end();
     } else {
-      console.log(JSONresponse);
-      // res.send("Success!");
+      console.log(jsonResponse);
+      token = jsonResponse.access_token;
       res.redirect("/");
     }
   });
 });
 
-// res.redirect("http://www.google.ro");
-// request({
-//   url: "https://slack.com/oauth/authorize",
-//   qs: {
-//     scope: "identity.basic,identity.email",
-//     client_id: process.env.CLIENT_ID
-//   }
-// }, function (error, response, body) {
-//   debugger;
-// });
+app.get("/checkAuthentication", function (req, res) {
+  var responseStatus = {
+    "success": true
+  };
 
-// // This route handles GET requests to our root ngrok address and responds with the same "Ngrok is working message" we used before
-// app.get('/files', function (req, res) {
-//     if (!req.query.token) {
-//       res.status(500);
-//       console.log("Token is missing");
-//     } else {
-//       request({
-//         url: 'https://slack.com/api/files.list', //URL to hit
-//         qs: {token: req.query.token}, //Query string data
-//         method: 'GET' //Specify the method
-//
-//       }, function (error, response, body) {
-//         if (error) {
-//           console.log(error);
-//         } else {
-//           res.json(body);
-//         }
-//       });
-//     }
-//   }
-// );
+  if (!code) {
+    responseStatus = {
+      "success": false
+    };
+  }
 
-// app.get('/auth', function (req, res) {
-//   request({
-//     url: "https://slack.com/oauth/authorize?scope=incoming-webhook&client_id=101540185972.527491816113",
-//     qs: {
-//       client_id: process.env.CLIENT_ID,
-//       client_secret: process.env.CLIENT_SECRET
-//     } //Query string data
-//   });
-//   // res.sendFile(__dirname + '/add_to_slack.html')
-// });
+  res.json(responseStatus);
+});
 
-// // This route handles get request to a /oauth endpoint. We'll use this endpoint for handling the logic of the Slack oAuth process behind our app.
-// app.get('/oauth', function(req, res) {
-//   // When a user authorizes an app, a code query parameter is passed on the oAuth endpoint. If that code is not there, we respond with an error message
-//   if (!req.query.code) {
-//     res.status(500);
-//     res.send({"Error": "Looks like we're not getting code."});
-//     console.log("Looks like we're not getting code.");
-//   } else {
-//     // If it's there...
-//
-//     // We'll do a GET call to Slack's `oauth.access` endpoint, passing our app's client ID, client secret, and the code we just got as query parameters.
-//     request({
-//       url: 'https://slack.com/api/oauth.access', //URL to hit
-//       qs: {code: req.query.code, client_id: clientId, client_secret: clientSecret}, //Query string data
-//       method: 'GET' //Specify the method
-//
-//     }, function (error, response, body) {
-//       if (error) {
-//         console.log(error);
-//       } else {
-//         res.json(body);
-//
-//       }
-//     })
-//   }
-// });
+app.get("/getFilesList", function (req, res) {
+
+  if (token) {
+    var options = {
+      url: 'https://slack.com/api/files.list',
+      qs: {
+        token: token
+      },
+      method: "GET"
+    };
+
+    request(options, function (error, response, body) {
+      var jsonResponse = JSON.parse(body);
+
+        if (error) {
+          console.log(error);
+        } else {
+          res.json(jsonResponse);
+        }
+      });
+  }
+});
