@@ -50,9 +50,10 @@
           cellRenderer: actionColumnRenderer
         },
         {
-          headerName: 'File name',
+          headerName: 'File',
           field: 'name',
-          minWidth: 150
+          minWidth: 150,
+          cellRenderer: fileCellRenderer
         }
       ];
       me.gridProperties = {
@@ -71,6 +72,7 @@
       }
     }
 
+    // action column renderer
     function actionColumnRenderer(params) {
       var columnTemplate = '';
 
@@ -86,8 +88,36 @@
       return columnTemplate;
     }
 
-    function deleteRow() {
+    // file cell renderer
+    function fileCellRenderer(params) {
+      var columnTemplate = '';
 
+      if (params.data) {
+        columnTemplate = "<div class='file'>" +
+          "<img class='fileThumbnail' src='" + params.data.thumb + "' alt='" + params.data.name + "'>" +
+          "<span class='filename'>" + params.data.name + "</span>" +
+          "</div>"
+      }
+
+      return columnTemplate;
+    }
+
+    // delete row action
+    function deleteRow() {
+      var $button = $(this);
+      var rowId = $button.data('rowId');
+
+      $http.post("delete/" + rowId).then(function (response) {
+        var data = response.data;
+
+        if (data.ok) {
+          notificationMessage.showNotificationMessage("Success", "success");
+
+          me.grid.api.refreshInfiniteCache();
+        } else {
+          notificationMessage.showNotificationMessage(data.error, "error");
+        }
+      })
     }
   }
 })();

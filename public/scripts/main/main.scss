@@ -5,3 +5,20 @@
   height: 40px;
 }
 
+.filesList {
+  .ag-cell {
+    .file {
+      display: flex;
+      align-items: center;
+      .fileThumbnail {
+        height: 40px;
+        width: 40px;
+      }
+      .filename {
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+}
