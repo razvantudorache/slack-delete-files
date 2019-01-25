@@ -5,10 +5,9 @@ ag-grid {
     height: 100%;
     .ag-header {
       margin-top: 1px;
-      @include box-shadowLevel1;
+      box-shadow: 0 0 4px rgba($darkColor, 0.35);
     }
-    .ag-body {
-      margin-top: 2px;
+    .ag-body-viewport {
       .actionColumn {
         .actionList {
           margin: 0;
@@ -20,12 +19,6 @@ ag-grid {
             &:before {
               font-family: 'Font Awesome 5 Free';
               font-size: 20px;
-            }
-            &.editRow {
-              &:before {
-                content: '\f044';
-                margin-right: 15px;
-              }
             }
             &.deleteRow {
               &:before {

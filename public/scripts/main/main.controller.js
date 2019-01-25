@@ -4,9 +4,9 @@
   angular.module("slackDeleteFiles")
     .controller('mainController', mainController);
 
-  mainController.$inject = ['$scope', '$http', '$state', 'notificationMessage'];
+  mainController.$inject = ['$scope', '$http', 'notificationMessage'];
 
-  function mainController($scope, $http, $state, notificationMessage) {
+  function mainController($scope, $http, notificationMessage) {
     var me = this;
 
     me.$onInit = function () {
@@ -24,7 +24,7 @@
      * @return {void}
      */
     function signInWithSlack() {
-      location.href = "https://slack.com/oauth/authorize?scope=files:read&client_id=101540185972.527491816113";
+      location.href = "https://slack.com/oauth/authorize?scope=files:read,files:write:user&client_id=101540185972.527491816113";
     }
 
     /**
@@ -45,7 +45,7 @@
       me.gridColumns = [
         {
           headerName: 'Actions',
-          minWidth: 150,
+          width: 20,
           cellClass: 'actionColumn',
           cellRenderer: actionColumnRenderer
         },
@@ -56,13 +56,18 @@
         }
       ];
       me.gridProperties = {
-        url: ''
+        url: '',
+        customGridOptions: {
+          getRowNodeId: function (data) {
+            return data.id;
+          }
+        }
       };
 
       me.grid = null;
 
       me.rowActions = {
-      //   deleteRow: deleteRow,
+        deleteRow: deleteRow
       }
     }
 
@@ -79,6 +84,10 @@
       }
 
       return columnTemplate;
+    }
+
+    function deleteRow() {
+
     }
   }
 })();

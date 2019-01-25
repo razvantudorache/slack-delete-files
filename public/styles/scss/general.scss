@@ -1,4 +1,3 @@
-@import "mixins";
 @import "colorsVar";
 @import "fonts";
 
@@ -45,7 +44,7 @@ md-input-container {
 
 .navigationToolbar {
   margin: 2px;
-  @include shadowLevel-1;
+  box-shadow: 0 0 4px rgba($darkColor, 0.35);
   display: flex;
   justify-content: flex-end;
 }
@@ -81,7 +80,7 @@ md-toolbar {
   z-index: 1;
   min-height: 50px;
   margin-bottom: 2px;
-  @include shadowLevel-1;
+  box-shadow: 0 0 4px rgba($darkColor, 0.35);
 }
 .md-toolbar-tools {
   height: 50px;

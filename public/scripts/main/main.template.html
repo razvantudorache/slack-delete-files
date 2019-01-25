@@ -1,5 +1,7 @@
-<md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+<div class="topBar">
+  <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+</div>
 
-<ag-grid grid-columns="::main.gridColumns" grid-properties="main.gridProperties" grid="main.grid"
+<ag-grid class="filesList" grid-columns="::main.gridColumns" grid-properties="::main.gridProperties" grid="main.grid"
          row-actions="::main.rowActions">
 </ag-grid>

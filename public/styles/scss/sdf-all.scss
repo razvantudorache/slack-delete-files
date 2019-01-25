@@ -1,5 +1,4 @@
 // Source: public/styles/scss/general.scss
-@import "mixins";
 @import "colorsVar";
 @import "fonts";
 
@@ -46,7 +45,7 @@ md-input-container {
 
 .navigationToolbar {
   margin: 2px;
-  @include shadowLevel-1;
+  box-shadow: 0 0 4px rgba($darkColor, 0.35);
   display: flex;
   justify-content: flex-end;
 }
@@ -82,7 +81,7 @@ md-toolbar {
   z-index: 1;
   min-height: 50px;
   margin-bottom: 2px;
-  @include shadowLevel-1;
+  box-shadow: 0 0 4px rgba($darkColor, 0.35);
 }
 .md-toolbar-tools {
   height: 50px;
@@ -101,10 +100,9 @@ ag-grid {
     height: 100%;
     .ag-header {
       margin-top: 1px;
-      @include box-shadowLevel1;
+      box-shadow: 0 0 4px rgba($darkColor, 0.35);
     }
-    .ag-body {
-      margin-top: 2px;
+    .ag-body-viewport {
       .actionColumn {
         .actionList {
           margin: 0;
@@ -116,12 +114,6 @@ ag-grid {
             &:before {
               font-family: 'Font Awesome 5 Free';
               font-size: 20px;
-            }
-            &.editRow {
-              &:before {
-                content: '\f044';
-                margin-right: 15px;
-              }
             }
             &.deleteRow {
               &:before {
@@ -143,7 +135,7 @@ ag-grid {
 .loadingMask {
   display: none;
   position: fixed;
-  top: 55px; // top bar height
+  top: 52px;
   width: 100%;
   z-index: 1000;
   bottom: 0;

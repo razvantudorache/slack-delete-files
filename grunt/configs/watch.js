@@ -12,7 +12,7 @@ module.exports = {
   css: {
     files: ['<%= yeoman.app %>/scripts/**/*.scss',
       '<%= yeoman.app %>/styles/scss/*.scss',
-      '!<%= yeoman.app %>/styles/scss/typ-all.scss'
+      '!<%= yeoman.app %>/styles/scss/sdf-all.scss'
     ],
     tasks: ['concat', 'sass', 'postcss']
   },

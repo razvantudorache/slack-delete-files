@@ -3,8 +3,7 @@
 (function () {
   angular.module('slackDeleteFiles')
     .config(stateConfig)
-    .config(httpConfig)
-    .config(progressbarConfig);
+    .config(httpConfig);
 
   /**
    * State config injection + method
@@ -31,12 +30,6 @@
       'Content-Type': 'application/json; charset=utf-8',
       'Response-Type': 'json'
     };
-  }
-
-  progressbarConfig.$inject = ['cfpLoadingBarProvider'];
-
-  function progressbarConfig(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.parentSelector = '.topBarContainer';
   }
 })();
 

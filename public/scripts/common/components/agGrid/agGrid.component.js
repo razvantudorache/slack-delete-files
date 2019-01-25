@@ -38,9 +38,7 @@
         cacheBlockSize: 20
       };
 
-      // $scope.gridOptions = _.merge(defaultGridOptions, me.gridProperties.customGridOptions);
-      $scope.gridOptions = defaultGridOptions;
-
+      $scope.gridOptions = _.merge(defaultGridOptions, me.gridProperties.customGridOptions);
     };
 
     /**
