@@ -4,9 +4,9 @@
   angular.module("slackDeleteFiles")
     .controller('mainController', mainController);
 
-  mainController.$inject = ['$scope', '$http', 'notificationMessage'];
+  mainController.$inject = ['$scope', '$http', 'notificationMessage', "slackDeleteFilesConst"];
 
-  function mainController($scope, $http, notificationMessage) {
+  function mainController($scope, $http, notificationMessage, slackDeleteFilesConst) {
     var me = this;
 
     me.$onInit = function () {
@@ -18,6 +18,9 @@
 
       $scope.signInWithSlack = signInWithSlack;
 
+      $scope.deleteSelected = deleteSelected;
+      $scope.deleteAllRowsDisplayed = deleteAllRowsDisplayed;
+
       defineGridColumnsAndProperties();
     };
 
@@ -27,6 +30,23 @@
      */
     function signInWithSlack() {
       location.href = "https://slack.com/oauth/authorize?scope=files:read,files:write:user&client_id=101540185972.527491816113";
+    }
+
+    /**
+     * Delete selected rows
+     */
+    function deleteSelected() {
+
+    }
+
+    /**
+     * Delete all rows displayed on UI
+     */
+    function deleteAllRowsDisplayed() {
+      me.grid.api.forEachNode( function(rowNode, index) {
+        debugger;
+        console.log('node ' + rowNode.data.id + ' is in the grid');
+      });
     }
 
     /**
@@ -84,7 +104,11 @@
       }
     }
 
-    // action column renderer
+    /**
+     * Action column renderer
+     * @param params
+     * @returns {string}
+     */
     function actionColumnRenderer(params) {
       var columnTemplate = '';
 
@@ -100,7 +124,11 @@
       return columnTemplate;
     }
 
-    // file cell renderer
+    /**
+     * File cell renderer
+     * @param params
+     * @returns {string}
+     */
     function fileCellRenderer(params) {
       var columnTemplate = '';
 
@@ -123,7 +151,9 @@
       }
     }
 
-    // delete row action
+    /**
+     * Delete row action
+     */
     function deleteRow() {
       var $button = $(this);
       var rowId = $button.data('rowId');
@@ -132,11 +162,11 @@
         var data = response.data;
 
         if (data.ok) {
-          notificationMessage.showNotificationMessage("Success", "success");
+          notificationMessage.showNotificationMessage("File successfully deleted!", "success");
 
           me.grid.api.refreshInfiniteCache();
         } else {
-          notificationMessage.showNotificationMessage(data.error, "error");
+          notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
         }
       })
     }

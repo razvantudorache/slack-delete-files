@@ -1,16 +1,21 @@
-<div class="topBar">
-  <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+<div class="mainContainer">
+  <div class="topBar">
+    <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+  </div>
+
+  <md-toolbar class="fileListToolbar">
+    <div class="md-toolbar-tools" ng-if="multipleToolbar">
+      <md-button ng-click="deleteSelected()">Delete selected rows</md-button>
+    </div>
+    <div class="md-toolbar-tools" ng-if="!multipleToolbar">
+      <md-button ng-click="deleteAllRowsDisplayed()">Delete all rows displayed</md-button>
+    </div>
+  </md-toolbar>
+
+  <div class="gridContainer">
+    <ag-grid class="filesList" grid-columns="::main.gridColumns" grid-properties="::main.gridProperties" grid="main.grid"
+             row-actions="::main.rowActions">
+    </ag-grid>
+  </div>
 </div>
 
-<md-toolbar class="fileListToolbar">
-  <div class="md-toolbar-tools" ng-if="multipleToolbar">
-    <md-button>Delete selected rows</md-button>
-  </div>
-  <div class="md-toolbar-tools" ng-if="!multipleToolbar">
-    <md-button>Delete all rows displayed</md-button>
-  </div>
-</md-toolbar>
-
-<ag-grid class="filesList" grid-columns="::main.gridColumns" grid-properties="::main.gridProperties" grid="main.grid"
-         row-actions="::main.rowActions">
-</ag-grid>

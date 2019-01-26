@@ -84,7 +84,10 @@ app.get("/filesList", function (req, res) {
     var options = {
       url: 'https://slack.com/api/files.list',
       qs: {
-        token: token
+        token: token,
+        count: req.query.limit,
+        page: (req.query.start / req.query.limit) + 1,
+        types: "images,zips,pdfs"
       },
       method: "GET"
     };
@@ -98,20 +101,17 @@ app.get("/filesList", function (req, res) {
           var files = [];
           for (var i = 0; i < jsonResponse.files.length; i++) {
             var file = jsonResponse.files[i];
-
-            if (!file.state) {
               files.push({
                 id: file.id,
                 name: file.name,
                 type: file.filetype,
                 thumb: file.thumb_64
               })
-            }
           }
 
           res.json({
             results: files,
-            total: files.length
+            total: jsonResponse.paging.total
           });
         }
       });

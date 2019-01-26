@@ -109,6 +109,8 @@
             $scope.gridOptions.api.showNoRowsOverlay();
           }
 
+          $scope.gridOptions.api.sizeColumnsToFit();
+
         });
       } else {
         params.successCallback([], 0);

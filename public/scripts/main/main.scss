@@ -1,33 +1,45 @@
-.topBar {
-  height: 70px;
-  .signIn {
-    background: url("images/sign_in_with_slack.png");
-    background-size: cover;
-    width: 172px;
-    height: 40px;
+.mainContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .topBar {
+    height: 70px;
+    .signIn {
+      background: url("images/sign_in_with_slack.png");
+      background-size: cover;
+      width: 172px;
+      height: 40px;
+    }
   }
-}
 
-.fileListToolbar {
-  margin: 0 10px;
-  width: auto;
-}
+  .fileListToolbar {
+    margin: 0 10px;
+    width: auto;
+  }
 
-.filesList {
-  margin: 10px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .35);
-  .ag-cell {
-    .file {
-      display: flex;
-      align-items: center;
-      .fileThumbnail {
-        height: 40px;
-        width: 40px;
-      }
-      .filename {
-        margin-left: 10px;
-        font-size: 14px;
-        font-weight: 600;
+  .gridContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .35);
+    .filesList {
+      .ag-cell {
+        .file {
+          display: flex;
+          align-items: center;
+          .fileThumbnail {
+            height: 40px;
+            width: 40px;
+          }
+          .filename {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
       }
     }
   }

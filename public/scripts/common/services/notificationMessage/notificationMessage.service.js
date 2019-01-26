@@ -10,7 +10,7 @@
     // override the default configuration of the Noty
     var configurationNotificationMessage = function () {
       Noty.overrideDefaults({
-        theme: 'nest',
+        theme: 'metroui',
         layout: 'topCenter',
         progressBar: false,
         animation: {
@@ -29,7 +29,7 @@
       new Noty({
         text: message,
         type: type,
-        timeout: type === 'error' ? 0 : 5000
+        timeout: 4000
       }).show();
     };
   }
