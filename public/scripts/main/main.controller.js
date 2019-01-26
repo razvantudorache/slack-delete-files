@@ -44,7 +44,6 @@
      */
     function deleteAllRowsDisplayed() {
       me.grid.api.forEachNode( function(rowNode, index) {
-        debugger;
         console.log('node ' + rowNode.data.id + ' is in the grid');
       });
     }
