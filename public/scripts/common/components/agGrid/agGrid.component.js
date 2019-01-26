@@ -89,7 +89,9 @@
      */
     function requestGridData(params) {
       if (me.gridProperties.url) {
+
         $scope.gridOptions.api.showLoadingOverlay();
+
         $http.get(me.gridProperties.url, {
           params: {
             start: params.startRow,

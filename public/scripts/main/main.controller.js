@@ -12,6 +12,8 @@
     me.$onInit = function () {
       $scope.showSignInButton = true;
 
+      $scope.multipleToolbar = false;
+
       checkAuthentication();
 
       $scope.signInWithSlack = signInWithSlack;
@@ -44,6 +46,12 @@
     function defineGridColumnsAndProperties() {
       me.gridColumns = [
         {
+          minWidth: 80,
+          maxWidth: 80,
+          cellClass: "checkboxCell",
+          checkboxSelection: true
+        },
+        {
           headerName: 'Actions',
           minWidth: 150,
           maxWidth: 150,
@@ -60,6 +68,9 @@
       me.gridProperties = {
         url: '',
         customGridOptions: {
+          suppressRowClickSelection: true,
+          onSelectionChanged: selectionChangedHandler,
+          rowSelection: 'multiple',
           getRowNodeId: function (data) {
             return data.id;
           }
@@ -101,6 +112,15 @@
       }
 
       return columnTemplate;
+    }
+    
+    function selectionChangedHandler() {
+      var hasSelectedRows = me.grid.api.getSelectedRows().length > 0;
+
+      if ($scope.multipleToolbar !== hasSelectedRows) {
+        $scope.multipleToolbar = hasSelectedRows;
+        $scope.$apply();
+      }
     }
 
     // delete row action
