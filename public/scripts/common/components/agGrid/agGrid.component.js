@@ -35,10 +35,20 @@
         maxConcurrentDatasourceRequests: 2,
         infiniteInitialRowCount: 1,
         maxBlocksInCache: 2,
-        cacheBlockSize: 20
+        cacheBlockSize: 20,
+        overlayLoadingTemplate: '<div class="ag-overlay-loading-center customLoadingOverlay">' +
+          '                         <i class="icon fas fa-circle-notch"></i>' +
+          '                         <div class="message">Please wait while your rows are loading</div>' +
+          '                      </div>',
+        overlayNoRowsTemplate: '<div class="noRowsOverlay">' +
+          '                         <i class="icon far fa-sad-tear"></i>' +
+          '                         <div class="message">No rows to be displayed</div>' +
+          '                     </div>'
       };
 
       $scope.gridOptions = _.merge(defaultGridOptions, me.gridProperties.customGridOptions);
+
+      initEvents();
     };
 
     /**
@@ -62,12 +72,24 @@
     }
 
     /**
+     * Events used by grid
+     */
+    function initEvents() {
+      var fitColumns = function () {
+        $scope.gridOptions.api.sizeColumnsToFit();
+      };
+
+      $(window).on('resize', $.debounce( 300 , fitColumns ))
+    }
+
+    /**
      * Get data from the server
      * @param {Object} params - grid options
      * @return {void}
      */
     function requestGridData(params) {
       if (me.gridProperties.url) {
+        $scope.gridOptions.api.showLoadingOverlay();
         $http.get(me.gridProperties.url, {
           params: {
             start: params.startRow,
@@ -78,7 +100,18 @@
           var total = response.data.total;
 
           params.successCallback(results, total);
+
+          if (!_.isEmpty(results)) {
+            $scope.gridOptions.api.hideOverlay();
+          } else {
+            $scope.gridOptions.api.showNoRowsOverlay();
+          }
+
         });
+      } else {
+        params.successCallback([], 0);
+
+        $scope.gridOptions.api.showNoRowsOverlay();
       }
     }
 

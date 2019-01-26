@@ -94,7 +94,7 @@ md-toolbar {
 
 // Source: public/scripts/common/components/agGrid/agGrid.scss
 ag-grid {
-  height: 100%;
+  //height: 100%;
   flex: 1;
   .agGrid {
     height: 100%;
@@ -121,6 +121,25 @@ ag-grid {
               }
             }
           }
+        }
+      }
+    }
+    .ag-overlay {
+      .message {
+        margin-top: 10px;
+        font-size: 20px;
+      }
+      .customLoadingOverlay {
+        .icon {
+          color: $materialColorLightBlueA700;
+          font-size: 30px;
+          animation: fa-spin 1.5s infinite linear;
+        }
+      }
+      .noRowsOverlay {
+        .icon {
+          font-size: 150px;
+          color: $materialColorGrey300;
         }
       }
     }
@@ -173,14 +192,19 @@ ag-grid {
 }
 
 // Source: public/scripts/main/main.scss
-.signIn {
-  background: url("images/sign_in_with_slack.png");
-  background-size: cover;
-  width: 172px;
-  height: 40px;
+.topBar {
+  height: 70px;
+  .signIn {
+    background: url("images/sign_in_with_slack.png");
+    background-size: cover;
+    width: 172px;
+    height: 40px;
+  }
 }
 
 .filesList {
+  margin: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .35);
   .ag-cell {
     .file {
       display: flex;
@@ -197,3 +221,4 @@ ag-grid {
     }
   }
 }
+

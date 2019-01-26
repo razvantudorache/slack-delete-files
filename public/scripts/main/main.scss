@@ -1,11 +1,16 @@
-.signIn {
-  background: url("images/sign_in_with_slack.png");
-  background-size: cover;
-  width: 172px;
-  height: 40px;
+.topBar {
+  height: 70px;
+  .signIn {
+    background: url("images/sign_in_with_slack.png");
+    background-size: cover;
+    width: 172px;
+    height: 40px;
+  }
 }
 
 .filesList {
+  margin: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .35);
   .ag-cell {
     .file {
       display: flex;
@@ -22,3 +27,4 @@
     }
   }
 }
+

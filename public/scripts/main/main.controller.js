@@ -45,7 +45,8 @@
       me.gridColumns = [
         {
           headerName: 'Actions',
-          width: 20,
+          minWidth: 150,
+          maxWidth: 150,
           cellClass: 'actionColumn',
           cellRenderer: actionColumnRenderer
         },

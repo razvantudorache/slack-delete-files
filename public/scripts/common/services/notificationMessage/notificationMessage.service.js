@@ -29,7 +29,7 @@
       new Noty({
         text: message,
         type: type,
-        timeout: type === 'error' ? 0 : 3000
+        timeout: type === 'error' ? 0 : 5000
       }).show();
     };
   }
