@@ -36,14 +36,54 @@
      * Delete selected rows
      */
     function deleteSelected() {
+      var selectedRecords = me.grid.api.getSelectedRows();
 
+      var filesId = [];
+      _.forEach(selectedRecords, function (value) {
+        filesId.push(value.id);
+      });
+
+      $http.post("delete", {
+        filesId: filesId
+      }).then(function (response) {
+        var data = response.data;
+
+        if (data.ok) {
+          var allFilesSuccessfullyDeleted = true;
+
+          var templateMessage = "<ul>";
+
+          for (var i = 0; i < data.results.length; i++) {
+            var result = data.results[i];
+
+            var fileName = _.find(selectedRecords, function (o) {
+              return o.id === result.fileId;
+            });
+
+            if (!result.message.ok) {
+              allFilesSuccessfullyDeleted = false;
+              templateMessage += "<li>" + fileName +": " + slackDeleteFilesConst.DELETE_ERRORS[result.message.error] + "</li>";
+            }
+          }
+
+          templateMessage += "</ul>";
+
+          if (allFilesSuccessfullyDeleted) {
+            notificationMessage.showNotificationMessage("File successfully deleted!", "success");
+          } else {
+            notificationMessage.showNotificationMessage(templateMessage, "success");
+          }
+
+          me.grid.api.refreshInfiniteCache();
+        }
+      });
     }
 
     /**
      * Delete all rows displayed on UI
      */
     function deleteAllRowsDisplayed() {
-      me.grid.api.forEachNode( function(rowNode, index) {
+      me.grid.api.forEachNode(function (rowNode, index) {
         console.log('node ' + rowNode.data.id + ' is in the grid');
       });
     }
@@ -100,7 +140,7 @@
 
       me.rowActions = {
         deleteRow: deleteRow
-      }
+      };
     }
 
     /**
@@ -135,12 +175,12 @@
         columnTemplate = "<div class='file'>" +
           "<img class='fileThumbnail' src='" + params.data.thumb + "' alt='" + params.data.name + "'>" +
           "<span class='filename'>" + params.data.name + "</span>" +
-          "</div>"
+          "</div>";
       }
 
       return columnTemplate;
     }
-    
+
     function selectionChangedHandler() {
       var hasSelectedRows = me.grid.api.getSelectedRows().length > 0;
 
@@ -167,7 +207,7 @@
         } else {
           notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
         }
-      })
+      });
     }
   }
 })();

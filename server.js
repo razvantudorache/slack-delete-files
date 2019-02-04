@@ -106,19 +106,19 @@ app.get("/filesList", function (req, res) {
                 name: file.name,
                 type: file.filetype,
                 thumb: file.thumb_64
-              })
+              });
           }
 
           res.json({
             results: files,
-            total: jsonResponse.paging.total
+            total: files.length
           });
         }
       });
   }
 });
 
-// route to delete files
+// route to delete files one by one
 app.post("/delete/:fileId", function (req, res) {
   var fileId = req.params.fileId;
 
@@ -139,5 +139,39 @@ app.post("/delete/:fileId", function (req, res) {
     } else {
       res.json(jsonResponse);
     }
-  })
+  });
+});
+
+app.post("/massDelete", function (req, res) {
+  var filesId = req.body.filesId;
+  var deleteFilesResponse = [];
+
+  for (var i = 0; i < filesId.length; i++) {
+    var options = {
+      url: 'https://slack.com/api/files.delete',
+      qs: {
+        token: token,
+        file: filesId[i]
+      },
+      method: "POST"
+    };
+
+    request(options, function (error, response, body) {
+      var jsonResponse = JSON.parse(body);
+
+      if (error) {
+        console.log(error);
+      } else {
+        deleteFilesResponse.push({
+          message: jsonResponse,
+          fileId: filesId[i]
+        });
+      }
+    });
+  }
+
+  res.json({
+    ok: true,
+    results: deleteFilesResponse
+  });
 });

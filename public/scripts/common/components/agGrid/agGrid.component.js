@@ -42,7 +42,7 @@
           '                      </div>',
         overlayNoRowsTemplate: '<div class="noRowsOverlay">' +
           '                         <i class="icon far fa-sad-tear"></i>' +
-          '                         <div class="message">No rows to be displayed</div>' +
+          '                         <div class="message">No records to be displayed</div>' +
           '                     </div>'
       };
 
