@@ -29,7 +29,7 @@
      * @return {void}
      */
     function signInWithSlack() {
-      location.href = "https://slack.com/oauth/authorize?scope=files:read,files:write:user&client_id=101540185972.527491816113";
+      location.href = "https://slack.com/oauth/authorize?scope=users:read,channels:read,files:read,files:write:user&client_id=101540185972.527491816113";
     }
 
     /**
@@ -43,35 +43,18 @@
         filesId.push(value.id);
       });
 
-      $http.post("delete", {
+      $http.post("massDelete", {
         filesId: filesId
       }).then(function (response) {
         var data = response.data;
 
         if (data.ok) {
-          var allFilesSuccessfullyDeleted = true;
+          var filesWithoutError = _.filter(data.results, 'ok');
 
-          var templateMessage = "<ul>";
-
-          for (var i = 0; i < data.results.length; i++) {
-            var result = data.results[i];
-
-            var fileName = _.find(selectedRecords, function (o) {
-              return o.id === result.fileId;
-            });
-
-            if (!result.message.ok) {
-              allFilesSuccessfullyDeleted = false;
-              templateMessage += "<li>" + fileName +": " + slackDeleteFilesConst.DELETE_ERRORS[result.message.error] + "</li>";
-            }
-          }
-
-          templateMessage += "</ul>";
-
-          if (allFilesSuccessfullyDeleted) {
-            notificationMessage.showNotificationMessage("File successfully deleted!", "success");
+          if (filesWithoutError.length) {
+            notificationMessage.showNotificationMessage("Files successfully deleted!", "success");
           } else {
-            notificationMessage.showNotificationMessage(templateMessage, "success");
+            notificationMessage.showNotificationMessage("Some files weren't been deleted!", "error");
           }
 
           me.grid.api.refreshInfiniteCache();
@@ -93,7 +76,7 @@
      * @return {void}
      */
     function checkAuthentication() {
-      $http.get("/checkAuthentication").then(function (response) {
+      $http.get("/authCheck").then(function (response) {
         $scope.showSignInButton = !response.data.success;
 
         if (!$scope.showSignInButton) {
