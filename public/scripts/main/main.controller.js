@@ -13,6 +13,7 @@
       $scope.showSignInButton = true;
 
       $scope.multipleToolbar = false;
+      $scope.showToolbar = false;
 
       checkAuthentication();
 
@@ -22,7 +23,16 @@
       $scope.deleteAllRowsDisplayed = deleteAllRowsDisplayed;
 
       defineGridColumnsAndProperties();
+
+      initEvents();
     };
+
+    function initEvents () {
+      // display the single toolbar button only when grid is loaded
+      $scope.$on("gridDataReady", function () {
+        $scope.showToolbar = true;
+      });
+    }
 
     /**
      * Sign in action
@@ -43,8 +53,29 @@
         filesId.push(value.id);
       });
 
+      deleteRows(filesId);
+    }
+
+    /**
+     * Delete all rows displayed on UI
+     */
+    function deleteAllRowsDisplayed() {
+      var filesId = [];
+
+      me.grid.api.forEachNode(function (rowNode, index) {
+        filesId.push(rowNode.data.id);
+      });
+
+      deleteRows(filesId);
+    }
+
+    /**
+     * Mass delete files
+     * @param rows
+     */
+    function deleteRows(rows) {
       $http.post("massDelete", {
-        filesId: filesId
+        filesId: rows
       }).then(function (response) {
         var data = response.data;
 
@@ -57,17 +88,10 @@
             notificationMessage.showNotificationMessage("Some files weren't been deleted!", "error");
           }
 
-          me.grid.api.refreshInfiniteCache();
-        }
-      });
-    }
+          me.grid.api.purgeInfiniteCache();
 
-    /**
-     * Delete all rows displayed on UI
-     */
-    function deleteAllRowsDisplayed() {
-      me.grid.api.forEachNode(function (rowNode, index) {
-        console.log('node ' + rowNode.data.id + ' is in the grid');
+          me.grid.api.deselectAll();
+        }
       });
     }
 
@@ -186,7 +210,7 @@
         if (data.ok) {
           notificationMessage.showNotificationMessage("File successfully deleted!", "success");
 
-          me.grid.api.refreshInfiniteCache();
+          me.grid.api.purgeInfiniteCache();
         } else {
           notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
         }

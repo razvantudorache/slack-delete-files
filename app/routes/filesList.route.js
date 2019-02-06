@@ -34,7 +34,7 @@ module.exports = function (app, authSecurity, request) {
 
           res.json({
             results: files,
-            total: files.length
+            total: jsonResponse.paging.total
           });
         }
       });

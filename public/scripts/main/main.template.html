@@ -7,7 +7,7 @@
     <div class="md-toolbar-tools" ng-if="multipleToolbar">
       <md-button ng-click="deleteSelected()">Delete selected rows</md-button>
     </div>
-    <div class="md-toolbar-tools" ng-if="!multipleToolbar">
+    <div class="md-toolbar-tools" ng-if="!multipleToolbar && showToolbar">
       <md-button ng-click="deleteAllRowsDisplayed()">Delete all rows displayed</md-button>
     </div>
   </md-toolbar>

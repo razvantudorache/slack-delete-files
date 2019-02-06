@@ -13,16 +13,16 @@
       }
     });
 
-  agGridController.$inject = ['$scope', '$http'];
+  agGridController.$inject = ['$scope', '$http', '$rootScope'];
 
-  function agGridController($scope, $http) {
+  function agGridController($scope, $http, $rootScope) {
     var me = this;
 
     me.$onInit = function () {
       var defaultGridOptions = {
         columnDefs: me.gridColumns,
         onGridReady: onGridReadyHandler,
-        animateRows: true,
+        animateRows: false,
         rowSelection: 'single',
         suppressContextMenu: true,
         suppressMenuHide: true,
@@ -79,7 +79,7 @@
         $scope.gridOptions.api.sizeColumnsToFit();
       };
 
-      $(window).on('resize', $.debounce( 300 , fitColumns ))
+      $(window).on('resize', $.debounce(300, fitColumns));
     }
 
     /**
@@ -103,13 +103,11 @@
 
           params.successCallback(results, total);
 
-          if (!_.isEmpty(results)) {
-            $scope.gridOptions.api.hideOverlay();
-          } else {
-            $scope.gridOptions.api.showNoRowsOverlay();
-          }
+          $scope.gridOptions.api.hideOverlay();
 
           $scope.gridOptions.api.sizeColumnsToFit();
+
+          $rootScope.$broadcast("gridDataReady");
 
         });
       } else {
