@@ -23,7 +23,7 @@
     flex-direction: column;
     flex: 1;
     overflow: hidden;
-    margin: 10px;
+    margin: 10px 10px 0 10px;
     box-shadow: 0 0 4px rgba(0, 0, 0, .35);
     .filesList {
       .ag-cell {
@@ -40,6 +40,40 @@
             font-weight: 600;
           }
         }
+      }
+    }
+  }
+
+  .bottomBar {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .35);
+    margin: 0 10px;
+    background-color: $materialColorGrey300;
+    .linkedIn, .gitHub {
+      margin: 0 15px;
+      outline: none;
+      text-decoration: none;
+      &:hover {
+        cursor: pointer;
+      }
+      &:before {
+        font-family: "Font Awesome 5 Brands";
+        font-size: 25px;
+      }
+    }
+    .linkedIn {
+      &:before {
+        color: #0073b1;
+        content: '\f08c'
+      }
+    }
+    .gitHub {
+      &:before {
+        color: #24292e;
+        content: '\f09b';
       }
     }
   }
