@@ -1,6 +1,12 @@
 <div class="mainContainer">
   <div class="topBar">
     <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+    <div class="userArea" ng-if="user">
+      <img class="userAvatar" ng-if="user.avatar"  src="{{user.avatar}}">
+      <span class="userIcon" ng-if="!user.avatar"></span>
+
+      <span class="username">{{user.name}}</span>
+    </div>
   </div>
 
   <div class="filters">

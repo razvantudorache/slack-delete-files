@@ -206,11 +206,36 @@ ag-grid {
     height: 70px;
     display: flex;
     align-items: center;
+    margin: 0 10px;
     .signIn {
       background: url("images/sign_in_with_slack.png");
       background-size: cover;
       width: 172px;
       height: 40px;
+      margin-left: 0;
+    }
+    .userArea {
+      display: flex;
+      align-items: center;
+      .userAvatar, .userIcon {
+        width: 48px;
+        height: 48px;
+        margin-right: 10px;
+      }
+      .userIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        border: 1px solid $materialColorGrey500;
+        background-color: $materialColorGrey500;
+        &:before {
+          color: $lightColor;
+          font-family: 'Font Awesome 5 Free';
+          content: "\f007";
+          font-size: 35px;
+        }
+      }
     }
   }
 
@@ -220,7 +245,8 @@ ag-grid {
     align-items: center;
     .filter {
       min-width: 200px;
-      margin: 0;
+      margin: 0 10px 0 0;
+      padding: 0;
     }
     .md-errors-spacer {
       display: none;

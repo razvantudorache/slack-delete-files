@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, request, authSecurity) {
+module.exports = function (app, authSecurity, request) {
   app.get("/authRedirect", function (req, res) {
     authSecurity.setCode(req.query.code);
 
@@ -22,8 +22,10 @@ module.exports = function (app, request, authSecurity) {
         console.log(jsonResponse);
         res.send("Error encountered: \n" + JSON.stringify(jsonResponse)).status(200).end();
       } else {
-        console.log(jsonResponse);
         authSecurity.setToken(jsonResponse.access_token);
+
+        req.session.user = jsonResponse.user_id;
+
         res.redirect("/");
       }
     });

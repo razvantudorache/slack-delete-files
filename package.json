@@ -12,6 +12,7 @@
     "browser-sync": "^2.24.4",
     "cssnano": "^3.7.4",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "grunt": "^1.0.1",
     "grunt-angular-templates": "^0.5.7",
     "grunt-browser-sync": "^2.2.0",

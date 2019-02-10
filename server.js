@@ -33,11 +33,14 @@ app.use(bodyParser.json());
 server.listen(port);
 console.log("App listening on port " + port);
 
+// session config
+require('./app/session/sessionConfig')(app);
+
 // application
 require("./app/routes/application.route")(path, app);
 
 // route to redirect user after authentication
-require("./app/routes/authRedirect.route")(app, request, authSecurity);
+require("./app/routes/authRedirect.route")(app, authSecurity, request);
 
 // route to hide sign in button at successful authentication
 require("./app/routes/authCheck.route")(app, authSecurity);
@@ -53,3 +56,6 @@ require("./app/routes/massDelete.route")(app, authSecurity, requestQueue);
 
 // route to get channels list
 require("./app/routes/channelsList.route")(app, authSecurity, request);
+
+// route to get user details
+require("./app/routes/userDetails.route")(app, authSecurity, request);

@@ -112,10 +112,27 @@
           me.gridProperties.url = "/filesList";
 
           // get user details
-          //TODO implement
+          getUserDetails();
 
           // get channels
           getChannels();
+        }
+      });
+    }
+
+    /**
+     * Get user details
+     * @return {void}
+     */
+    function getUserDetails() {
+      $http.get("/userDetails").then(function (response) {
+        $scope.user = response.data.user;
+
+        if (!$scope.user) {
+          $scope.user = {
+            name: "Unavailable",
+            avatar: ""
+          };
         }
       });
     }
