@@ -216,8 +216,6 @@
           }
 
           me.grid.api.requestGridData();
-
-          me.grid.api.deselectAll();
         }
       });
     }

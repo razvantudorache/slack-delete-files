@@ -85,6 +85,7 @@
      */
     function requestGridData() {
       if (me.gridProperties.url) {
+        $scope.gridOptions.api.deselectAll();
 
         $scope.gridOptions.api.showLoadingOverlay();
 
