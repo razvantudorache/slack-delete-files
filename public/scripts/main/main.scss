@@ -48,6 +48,16 @@
           .fileThumbnail {
             height: 40px;
             width: 40px;
+            &.noThumbnail {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              &:before {
+                font-family: 'Font Awesome 5 Free';
+                font-size: 30px;
+                content: "\f15b";
+              }
+            }
           }
           .filename {
             margin-left: 10px;

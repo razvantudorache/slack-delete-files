@@ -4,7 +4,16 @@ const mimeTypeMap = {
     "image": "image/",
     "video": "video/",
     "audio": "audio/",
-    "doc": ["application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint", "application/x-msaccess", "application/pdf"],
+    "doc": ["application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint",
+        "application/x-msaccess", "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/vnd.openxmlformats-officedocument.presentationml.template",
+        "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+        "application/vnd.ms-access"],
     "text": "text/",
     "archive": ["application/x-compressed", "application/zip", "application/octet-stream"]
 };
@@ -34,7 +43,6 @@ module.exports = function (app, authSecurity, request) {
                     console.log(error);
                 } else {
                     var files = [];
-                    var filesToBeExcluded = 0;
 
                     for (var i = 0; i < jsonResponse.files.length; i++) {
                         var file = jsonResponse.files[i];
@@ -44,26 +52,11 @@ module.exports = function (app, authSecurity, request) {
                             // request has filter type applied
                             if (filters.type) {
                                 if (file.mimetype.indexOf(mimeTypeMap[filters.type]) !== -1 || mimeTypeMap[filters.type].indexOf(file.mimetype) !== -1) {
-                                    files.push({
-                                        id: file.id,
-                                        name: file.name,
-                                        type: file.filetype,
-                                        thumb: file.thumb_64 || file.thumb_video
-                                    });
-                                } else {
-                                    filesToBeExcluded++;
+                                    storeFile (file, files);
                                 }
-
                             } else {
-                                files.push({
-                                    id: file.id,
-                                    name: file.name,
-                                    type: file.filetype,
-                                    thumb: file.thumb_64 || file.thumb_video
-                                });
+                                storeFile (file, files);
                             }
-                        } else {
-                            filesToBeExcluded++;
                         }
                     }
 
@@ -75,3 +68,16 @@ module.exports = function (app, authSecurity, request) {
         }
     });
 };
+
+/**
+ * Store file into files array
+ * @param file
+ * @param filesArray
+ */
+function storeFile(file, filesArray) {
+    filesArray.push({
+        id: file.id,
+        name: file.name,
+        thumb: file.thumb_64 || file.thumb_video
+    });
+}

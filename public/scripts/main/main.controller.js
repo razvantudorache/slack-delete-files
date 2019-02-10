@@ -60,7 +60,7 @@
             "value": "image"
           },
           {
-            "text": "All video",
+            "text": "All videos",
             "value": "video"
           },
           {
@@ -84,7 +84,6 @@
         }
       };
     }
-
 
 
     /**
@@ -258,8 +257,14 @@
       var columnTemplate = '';
 
       if (params.data) {
+        var thumbnail = "<span class='fileThumbnail noThumbnail'></span>";
+
+        if (params.data.thumb) {
+          thumbnail = "<img class='fileThumbnail' src='" + params.data.thumb + "' alt='" + params.data.name + "'>";
+        }
+
         columnTemplate = "<div class='file'>" +
-          "<img class='fileThumbnail' src='" + params.data.thumb + "' alt='" + params.data.name + "'>" +
+          thumbnail +
           "<span class='filename'>" + params.data.name + "</span>" +
           "</div>";
       }
@@ -305,7 +310,7 @@
      * Init events used in page
      * @return {void}
      */
-    function initEvents () {
+    function initEvents() {
       $scope.$on("gridDataReady", function () {
         // display the single toolbar button only when grid is loaded
         $scope.showToolbar = true;
