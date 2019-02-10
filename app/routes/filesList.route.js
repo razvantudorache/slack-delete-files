@@ -38,11 +38,11 @@ module.exports = function (app, authSecurity, request) {
 
             request(options, function (error, response, body) {
                 var jsonResponse = JSON.parse(body);
+                var files = [];
 
                 if (error) {
                     console.log(error);
                 } else {
-                    var files = [];
 
                     for (var i = 0; i < jsonResponse.files.length; i++) {
                         var file = jsonResponse.files[i];
@@ -59,11 +59,11 @@ module.exports = function (app, authSecurity, request) {
                             }
                         }
                     }
-
-                    res.json({
-                        results: files
-                    });
                 }
+
+                res.json({
+                    results: files
+                });
             });
         }
     });

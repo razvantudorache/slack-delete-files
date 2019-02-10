@@ -4,11 +4,11 @@
   </div>
 
   <div class="filters">
-    <md-input-container ng-show="showFilterByChannels" class="filter">
-      <input selectize>
+    <md-input-container ng-if="showFilterByChannels" class="filter">
+      <input selectize configuration="filterByChannelsConfiguration">
     </md-input-container>
 
-    <md-input-container ng-show="showFilterByTypes" class="filter">
+    <md-input-container ng-if="showFilterByTypes" class="filter">
       <input selectize configuration="filterByTypeConfiguration">
     </md-input-container>
 

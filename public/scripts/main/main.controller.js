@@ -40,6 +40,20 @@
     function initFilterByChannels() {
       $scope.showFilterByChannels = false;
 
+      $scope.filterByChannelsConfiguration = {
+        options: [
+          {
+            "text": "All channels",
+            "value": ""
+          }
+        ],
+        items: [""],
+        maxItems: 1,
+        placeholder: "Select channel",
+        onChange: function (value) {
+          me.gridProperties.filters.channel = value;
+        }
+      };
     }
 
     /**
@@ -85,7 +99,6 @@
       };
     }
 
-
     /**
      * Show/hide sign in button based of the authentication value
      * @return {void}
@@ -102,8 +115,21 @@
           //TODO implement
 
           // get channels
-          //TODO implement
+          getChannels();
         }
+      });
+    }
+
+    /**
+     * Get channels list
+     * @return {void}
+     */
+    function getChannels() {
+      $http.get("/channelsList").then(function (response) {
+        $scope.filterByChannelsConfiguration.options = _.concat($scope.filterByChannelsConfiguration.options, response.data.results);
+
+        // show channels filter
+        $scope.showFilterByChannels = true;
       });
     }
 
@@ -315,7 +341,7 @@
         // display the single toolbar button only when grid is loaded
         $scope.showToolbar = true;
 
-        // show file types filters
+        // show file types filter
         $scope.showFilterByTypes = true;
       });
     }

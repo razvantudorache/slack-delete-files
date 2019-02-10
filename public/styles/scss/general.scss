@@ -89,4 +89,9 @@ md-toolbar {
 .md-button {
   line-height: 30px;
   min-height: 30px;
+  &:not([disabled]) {
+    &.md-focused, &:hover {
+      background-color: transparent;
+    }
+  }
 }

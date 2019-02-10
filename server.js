@@ -48,5 +48,8 @@ require("./app/routes/filesList.route")(app, authSecurity, request);
 // route to delete files one by one
 require("./app/routes/delete.route")(app, authSecurity, request);
 
-// router to delete multiple files
+// route to delete multiple files
 require("./app/routes/massDelete.route")(app, authSecurity, requestQueue);
+
+// route to get channels list
+require("./app/routes/channelsList.route")(app, authSecurity, request);
