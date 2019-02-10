@@ -57,19 +57,23 @@
           },
           {
             "text": "All images",
-            "value": "images"
+            "value": "image"
           },
           {
             "text": "All video",
-            "value": "videos"
+            "value": "video"
           },
           {
             "text": "All archives",
-            "value": "zips"
+            "value": "archive"
           },
           {
             "text": "All documents",
-            "value": "docs"
+            "value": "doc"
+          },
+          {
+            "text": "All text files",
+            "value": "text"
           }
         ],
         items: [""],
@@ -146,7 +150,7 @@
      * @return {void}
      */
     function applyFilters() {
-      me.grid.api.purgeInfiniteCache();
+      me.grid.api.requestGridData();
     }
 
     /**
@@ -169,7 +173,7 @@
             notificationMessage.showNotificationMessage("Some files weren't been deleted!", "error");
           }
 
-          me.grid.api.purgeInfiniteCache();
+          me.grid.api.requestGridData();
 
           me.grid.api.deselectAll();
         }
@@ -290,7 +294,7 @@
         if (data.ok) {
           notificationMessage.showNotificationMessage("File successfully deleted!", "success");
 
-          me.grid.api.purgeInfiniteCache();
+          me.grid.api.requestGridData();
         } else {
           notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
         }

@@ -29,7 +29,6 @@
         suppressCellSelection: true,
         floatingFilter: false,
         cacheOverflowSize: 2,
-        rowModelType: 'infinite',
         paginationPageSize: 20,
         rowBuffer: 0,
         maxConcurrentDatasourceRequests: 2,
@@ -56,12 +55,8 @@
      * @return {void}
      */
     function onGridReadyHandler() {
-      var dataSource = {
-        rowCount: null,
-        getRows: requestGridData
-      };
+      requestGridData();
 
-      $scope.gridOptions.api.setDatasource(dataSource);
       $scope.gridOptions.api.sizeColumnsToFit();
 
       if (!_.isUndefined(me.grid)) {
@@ -69,6 +64,8 @@
       }
 
       addRowActionsHandlers();
+
+      me.grid.api.requestGridData = requestGridData;
     }
 
     /**
@@ -84,25 +81,21 @@
 
     /**
      * Get data from the server
-     * @param {Object} params - grid options
      * @return {void}
      */
-    function requestGridData(params) {
+    function requestGridData() {
       if (me.gridProperties.url) {
 
         $scope.gridOptions.api.showLoadingOverlay();
 
         $http.get(me.gridProperties.url, {
           params: {
-            start: params.startRow,
-            limit: $scope.gridOptions.paginationPageSize,
             filters: me.gridProperties.filters
           }
         }).then(function (response) {
           var results = response.data.results;
-          var total = response.data.total;
 
-          params.successCallback(results, total);
+          $scope.gridOptions.api.setRowData(results);
 
           $scope.gridOptions.api.hideOverlay();
 
@@ -112,7 +105,7 @@
 
         });
       } else {
-        params.successCallback([], 0);
+        $scope.gridOptions.api.setRowData([]);
 
         $scope.gridOptions.api.showNoRowsOverlay();
       }
