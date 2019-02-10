@@ -21,7 +21,8 @@
     "font-awesome": "Font-Awesome#5.6.3",
     "noty": "3.1.4",
     "ag-grid": "20.0.0",
-    "jquery-throttle-debounce": "*"
+    "jquery-throttle-debounce": "*",
+    "selectize": "0.12.6"
   },
   "appPath": "public",
   "moduleName": "slackDeleteFiles",
@@ -43,7 +44,16 @@
       ]
     },
     "jquery-throttle-debounce": {
-      "main": ["jquery.ba-throttle-debounce.js"]
+      "main": [
+        "jquery.ba-throttle-debounce.js"
+      ]
+    },
+    "selectize": {
+      "main": [
+        "dist/js/standalone/selectize.js",
+        "dist/css/selectize.css"
+      ],
+      "dependencies": {}
     }
   }
 }

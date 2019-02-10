@@ -39,7 +39,7 @@
      * @return {void}
      */
     function signInWithSlack() {
-      location.href = "https://slack.com/oauth/authorize?scope=users:read,channels:read,files:read,files:write:user&client_id=101540185972.527491816113";
+      location.href = "https://slack.com/oauth/authorize?scope=users:read,channels:read,groups:read,files:read,files:write:user&client_id=101540185972.527491816113";
     }
 
     /**
@@ -104,7 +104,12 @@
         $scope.showSignInButton = !response.data.success;
 
         if (!$scope.showSignInButton) {
+          // set url to get files list
           me.gridProperties.url = "/filesList";
+
+          // get user details
+
+          // get channels
         }
       });
     }

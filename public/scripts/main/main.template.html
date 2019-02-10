@@ -3,6 +3,18 @@
     <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
   </div>
 
+  <div class="filters">
+    <md-input-container>
+      <label>Channels</label>
+      <input selectize>
+    </md-input-container>
+
+    <md-input-container>
+      <label>File type</label>
+      <input selectize>
+    </md-input-container>
+  </div>
+
   <md-toolbar class="fileListToolbar">
     <div class="md-toolbar-tools" ng-if="multipleToolbar">
       <md-button ng-click="deleteSelected()">Delete selected rows</md-button>
