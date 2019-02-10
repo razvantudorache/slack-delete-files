@@ -95,7 +95,8 @@
         $http.get(me.gridProperties.url, {
           params: {
             start: params.startRow,
-            limit: $scope.gridOptions.paginationPageSize
+            limit: $scope.gridOptions.paginationPageSize,
+            filters: me.gridProperties.filters
           }
         }).then(function (response) {
           var results = response.data.results;

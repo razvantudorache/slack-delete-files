@@ -4,15 +4,15 @@
   </div>
 
   <div class="filters">
-    <md-input-container>
-      <label>Channels</label>
+    <md-input-container ng-show="showFilterByChannels" class="filter">
       <input selectize>
     </md-input-container>
 
-    <md-input-container>
-      <label>File type</label>
-      <input selectize>
+    <md-input-container ng-show="showFilterByTypes" class="filter">
+      <input selectize configuration="filterByTypeConfiguration">
     </md-input-container>
+
+    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filter(s)</md-button>
   </div>
 
   <md-toolbar class="fileListToolbar">

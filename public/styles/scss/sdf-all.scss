@@ -211,6 +211,12 @@ ag-grid {
 
   .filters {
     margin: 0 10px;
+    display: flex;
+    align-items: center;
+    .filter {
+      min-width: 200px;
+      margin: 0;
+    }
     .md-errors-spacer {
       display: none;
     }

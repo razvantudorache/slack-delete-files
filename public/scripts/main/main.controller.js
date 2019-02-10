@@ -15,6 +15,10 @@
       $scope.multipleToolbar = false;
       $scope.showToolbar = false;
 
+      initFilterByChannels();
+
+      initFilterByTypes();
+
       checkAuthentication();
 
       $scope.signInWithSlack = signInWithSlack;
@@ -22,15 +26,81 @@
       $scope.deleteSelected = deleteSelected;
       $scope.deleteAllRowsDisplayed = deleteAllRowsDisplayed;
 
+      $scope.applyFilters = applyFilters;
+
       defineGridColumnsAndProperties();
 
       initEvents();
     };
 
-    function initEvents () {
-      // display the single toolbar button only when grid is loaded
-      $scope.$on("gridDataReady", function () {
-        $scope.showToolbar = true;
+    /**
+     * Init and configure filter by channels
+     * @return {void}
+     */
+    function initFilterByChannels() {
+      $scope.showFilterByChannels = false;
+
+    }
+
+    /**
+     * Init and configure filter by types
+     * @return {void}
+     */
+    function initFilterByTypes() {
+      $scope.showFilterByTypes = false;
+
+      $scope.filterByTypeConfiguration = {
+        options: [
+          {
+            "text": "All files",
+            "value": ""
+          },
+          {
+            "text": "All images",
+            "value": "images"
+          },
+          {
+            "text": "All video",
+            "value": "videos"
+          },
+          {
+            "text": "All archives",
+            "value": "zips"
+          },
+          {
+            "text": "All documents",
+            "value": "docs"
+          }
+        ],
+        items: [""],
+        maxItems: 1,
+        placeholder: "Select file type",
+        onChange: function (value) {
+          me.gridProperties.filters.type = value;
+        }
+      };
+    }
+
+
+
+    /**
+     * Show/hide sign in button based of the authentication value
+     * @return {void}
+     */
+    function checkAuthentication() {
+      $http.get("/authCheck").then(function (response) {
+        $scope.showSignInButton = !response.data.success;
+
+        if (!$scope.showSignInButton) {
+          // set url to get files list
+          me.gridProperties.url = "/filesList";
+
+          // get user details
+          //TODO implement
+
+          // get channels
+          //TODO implement
+        }
       });
     }
 
@@ -44,6 +114,7 @@
 
     /**
      * Delete selected rows
+     * @return {void}
      */
     function deleteSelected() {
       var selectedRecords = me.grid.api.getSelectedRows();
@@ -58,6 +129,7 @@
 
     /**
      * Delete all rows displayed on UI
+     * @return {void}
      */
     function deleteAllRowsDisplayed() {
       var filesId = [];
@@ -70,8 +142,17 @@
     }
 
     /**
+     * Apply selected filter(s)
+     * @return {void}
+     */
+    function applyFilters() {
+      me.grid.api.purgeInfiniteCache();
+    }
+
+    /**
      * Mass delete files
-     * @param rows
+     * @param {Object} rows - selected rows
+     * @return {void}
      */
     function deleteRows(rows) {
       $http.post("massDelete", {
@@ -96,24 +177,9 @@
     }
 
     /**
-     * Show/hide sign in button based of the authentication value
+     * Columns and grid properties
      * @return {void}
      */
-    function checkAuthentication() {
-      $http.get("/authCheck").then(function (response) {
-        $scope.showSignInButton = !response.data.success;
-
-        if (!$scope.showSignInButton) {
-          // set url to get files list
-          me.gridProperties.url = "/filesList";
-
-          // get user details
-
-          // get channels
-        }
-      });
-    }
-
     function defineGridColumnsAndProperties() {
       me.gridColumns = [
         {
@@ -138,6 +204,10 @@
       ];
       me.gridProperties = {
         url: '',
+        filters: {
+          channel: "",
+          type: ""
+        },
         customGridOptions: {
           suppressRowClickSelection: true,
           onSelectionChanged: selectionChangedHandler,
@@ -157,8 +227,8 @@
 
     /**
      * Action column renderer
-     * @param params
-     * @returns {string}
+     * @param {Object} params - column params
+     * @returns {string} - column template
      */
     function actionColumnRenderer(params) {
       var columnTemplate = '';
@@ -177,8 +247,8 @@
 
     /**
      * File cell renderer
-     * @param params
-     * @returns {string}
+     * @param {Object} params - column params
+     * @returns {string} - column template
      */
     function fileCellRenderer(params) {
       var columnTemplate = '';
@@ -193,6 +263,10 @@
       return columnTemplate;
     }
 
+    /**
+     * Show/hide multiple toolbar on row selection
+     * @return {void}
+     */
     function selectionChangedHandler() {
       var hasSelectedRows = me.grid.api.getSelectedRows().length > 0;
 
@@ -204,6 +278,7 @@
 
     /**
      * Delete row action
+     * @return {void}
      */
     function deleteRow() {
       var $button = $(this);
@@ -219,6 +294,20 @@
         } else {
           notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
         }
+      });
+    }
+
+    /**
+     * Init events used in page
+     * @return {void}
+     */
+    function initEvents () {
+      $scope.$on("gridDataReady", function () {
+        // display the single toolbar button only when grid is loaded
+        $scope.showToolbar = true;
+
+        // show file types filters
+        $scope.showFilterByTypes = true;
       });
     }
   }

@@ -6,8 +6,11 @@ angular.module('slackDeleteFiles')
 function selectizeDirective() {
     return {
         restrict: 'A',
+        scope: {
+          configuration: "<"
+        },
         link: function ($scope, element) {
-            angular.element(element).selectize();
+            angular.element(element).selectize($scope.configuration);
         }
     };
 
