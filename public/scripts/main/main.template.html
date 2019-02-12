@@ -1,6 +1,6 @@
 <div class="mainContainer">
   <div class="topBar">
-    <md-button ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+    <md-button aria-label="Sign in with Slack" ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
     <div class="userArea" ng-if="user">
       <img class="userAvatar" ng-if="user.avatar"  src="{{user.avatar}}">
       <span class="userIcon" ng-if="!user.avatar"></span>
@@ -15,11 +15,11 @@
 
   <div class="filters">
     <md-input-container ng-if="showFilterByChannels" class="filter">
-      <input class="channelsFilter" selectize configuration="filterByChannelsConfiguration">
+      <input aria-label="Channels filter" class="channelsFilter" selectize configuration="filterByChannelsConfiguration">
     </md-input-container>
 
     <md-input-container ng-if="showFilterByTypes" class="filter">
-      <input class="typesFilter" selectize configuration="filterByTypeConfiguration">
+      <input aria-label="File types filter" class="typesFilter" selectize configuration="filterByTypeConfiguration">
     </md-input-container>
 
     <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filters</md-button>
