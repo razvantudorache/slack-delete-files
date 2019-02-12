@@ -4,6 +4,19 @@
   align-items: center;
 }
 
+.noty_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .flatButton {
+    color: $materialColorLightBlueA700;
+  }
+}
+
+.noty_close_button {
+  display: none;
+}
+
 .noty_effects_open {
   opacity: 0;
   transform: translateY(0);

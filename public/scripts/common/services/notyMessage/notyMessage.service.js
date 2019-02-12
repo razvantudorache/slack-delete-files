@@ -2,13 +2,13 @@
 
 (function () {
   angular.module('slackDeleteFiles')
-    .service('notificationMessage', notificationMessage);
+    .service('notyMessageService', notyMessageService);
 
-  function notificationMessage() {
+  function notyMessageService() {
     var me = this;
 
     // override the default configuration of the Noty
-    var configurationNotificationMessage = function () {
+    var configurationNotyMessageService = function () {
       Noty.overrideDefaults({
         theme: 'metroui',
         layout: 'topCenter',
@@ -24,12 +24,27 @@
 
     // show the notification message based on message and type
     me.showNotificationMessage = function (message, type) {
-      configurationNotificationMessage();
+      configurationNotyMessageService();
 
       new Noty({
         text: message,
         type: type,
         timeout: 4000
+      }).show();
+    };
+
+    me.showConfirmationMessage = function (message, buttons) {
+      configurationNotyMessageService();
+
+      new Noty({
+        layout: 'center',
+        animation: {
+          close: null,
+          open: null
+        },
+        text: message,
+        modal: true,
+        buttons: buttons
       }).show();
     };
   }

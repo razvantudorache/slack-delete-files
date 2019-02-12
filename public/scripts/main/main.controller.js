@@ -4,9 +4,9 @@
   angular.module("slackDeleteFiles")
     .controller('mainController', mainController);
 
-  mainController.$inject = ['$scope', '$http', 'notificationMessage', "slackDeleteFilesConst", "$state"];
+  mainController.$inject = ['$scope', '$http', 'notyMessageService', "slackDeleteFilesConst", "$state"];
 
-  function mainController($scope, $http, notificationMessage, slackDeleteFilesConst, $state) {
+  function mainController($scope, $http, notyMessageService, slackDeleteFilesConst, $state) {
     var me = this;
 
     me.$onInit = function () {
@@ -229,23 +229,33 @@
      * @return {void}
      */
     function deleteRows(rows) {
-      $http.post("massDelete", {
-        filesId: rows
-      }).then(function (response) {
-        var data = response.data;
+      var buttons = [
+        Noty.button('NO', 'flatButton', function () {
+          Noty.closeAll();
+        }),
 
-        if (data.ok) {
-          var filesWithoutError = _.filter(data.results, 'ok');
+        Noty.button('YES', 'flatButton', function () {
+          $http.post("massDelete", {
+            filesId: rows
+          }).then(function (response) {
+            var data = response.data;
 
-          if (filesWithoutError.length) {
-            notificationMessage.showNotificationMessage("Files successfully deleted!", "success");
-          } else {
-            notificationMessage.showNotificationMessage("Some files weren't been deleted!", "error");
-          }
+            if (data.ok) {
+              var filesWithoutError = _.filter(data.results, 'ok');
 
-          me.grid.api.requestGridData();
-        }
-      });
+              if (filesWithoutError.length) {
+                notyMessageService.showNotificationMessage("Files successfully deleted!", "success");
+              } else {
+                notyMessageService.showNotificationMessage("Some files weren't been deleted!", "error");
+              }
+
+              me.grid.api.requestGridData();
+            }
+          });
+        })
+      ];
+
+      notyMessageService.showConfirmationMessage("Are you sure you want to delete the selected file?", buttons);
     }
 
     /**
@@ -362,17 +372,28 @@
       var $button = $(this);
       var rowId = $button.data('rowId');
 
-      $http.post("delete/" + rowId).then(function (response) {
-        var data = response.data;
+      var buttons = [
+        Noty.button('NO', 'flatButton', function () {
+          Noty.closeAll();
+        }),
 
-        if (data.ok) {
-          notificationMessage.showNotificationMessage("File successfully deleted!", "success");
+        Noty.button('YES', 'flatButton', function () {
+          $http.post("delete/" + rowId).then(function (response) {
+            var data = response.data;
 
-          me.grid.api.requestGridData();
-        } else {
-          notificationMessage.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
-        }
-      });
+            if (data.ok) {
+              notyMessageService.showNotificationMessage("File successfully deleted!", "success");
+
+            } else {
+              notyMessageService.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
+            }
+
+            me.grid.api.requestGridData();
+          });
+        })
+      ];
+
+      notyMessageService.showConfirmationMessage("Are you sure you want to delete the selected file?", buttons);
     }
 
     /**

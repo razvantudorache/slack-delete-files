@@ -14,6 +14,10 @@ body {
   box-sizing: border-box;
 }
 
+button, select, input {
+  font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+}
+
 input {
   &:focus {
     outline: none;
@@ -106,6 +110,22 @@ md-toolbar {
     }
   }
 }
+
+.flatButton {
+  background: none;
+  border: 0;
+  outline: none;
+  color: $darkColor;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 6px;
+  margin: 6px 8px;
+  min-height: 30px;
+  min-width: 60px;
+  &:hover {
+    background-color: rgba(158,158,158,0.2);
+  }
+}
 // Source: public/scripts/common/components/agGrid/agGrid.scss
 ag-grid {
   height: 100%;
@@ -174,11 +194,24 @@ ag-grid {
   bottom: 0;
 }
 
-// Source: public/scripts/common/services/notificationMessage/notificationMessage.scss
+// Source: public/scripts/common/services/notyMessage/notyMessage.scss
 .noty_body {
   min-height: 50px;
   display: flex;
   align-items: center;
+}
+
+.noty_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .flatButton {
+    color: $materialColorLightBlueA700;
+  }
+}
+
+.noty_close_button {
+  display: none;
 }
 
 .noty_effects_open {
