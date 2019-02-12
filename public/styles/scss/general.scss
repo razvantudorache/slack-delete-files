@@ -90,8 +90,18 @@ md-toolbar {
   line-height: 30px;
   min-height: 30px;
   &:not([disabled]) {
-    &.md-focused, &:hover {
+    &.md-focused {
       background-color: transparent;
+    }
+  }
+}
+
+.selectize-dropdown {
+  .option {
+    color: $textColor;
+    &.active {
+      cursor: pointer;
+      background-color: $materialColorGrey300;
     }
   }
 }

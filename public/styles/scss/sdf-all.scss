@@ -91,12 +91,21 @@ md-toolbar {
   line-height: 30px;
   min-height: 30px;
   &:not([disabled]) {
-    &.md-focused, &:hover {
+    &.md-focused {
       background-color: transparent;
     }
   }
 }
 
+.selectize-dropdown {
+  .option {
+    color: $textColor;
+    &.active {
+      cursor: pointer;
+      background-color: $materialColorGrey300;
+    }
+  }
+}
 // Source: public/scripts/common/components/agGrid/agGrid.scss
 ag-grid {
   height: 100%;
@@ -206,6 +215,7 @@ ag-grid {
     height: 70px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0 10px;
     .signIn {
       background: url("images/sign_in_with_slack.png");
@@ -234,6 +244,38 @@ ag-grid {
           font-family: 'Font Awesome 5 Free';
           content: "\f007";
           font-size: 35px;
+        }
+      }
+    }
+    .signOut {
+      outline: none;
+      text-decoration: none;
+      color: $materialColorLightBlueA700;
+      margin-right: 15px;
+      padding-bottom: 1px;
+      &:after {
+        margin-top: 2px;
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: $materialColorLightBlueA700;
+        transition: width .3s;
+      }
+      &:hover {
+        cursor: pointer;
+        &:after {
+          width: 100%;
+        }
+      }
+      .signOutText {
+        display: flex;
+        &:after {
+          font-family: 'Font Awesome 5 Free';
+          content: "\f2f5";
+          font-size: 20px;
+          font-weight: 600;
+          padding-left: 10px;
         }
       }
     }
@@ -328,4 +370,3 @@ ag-grid {
     }
   }
 }
-

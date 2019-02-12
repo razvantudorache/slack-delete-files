@@ -59,3 +59,6 @@ require("./app/routes/channelsList.route")(app, authSecurity, request);
 
 // route to get user details
 require("./app/routes/userDetails.route")(app, authSecurity, request);
+
+// route to sign out from application
+require("./app/routes/signout.route")(app, authSecurity);

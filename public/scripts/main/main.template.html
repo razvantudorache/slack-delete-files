@@ -7,18 +7,23 @@
 
       <span class="username">{{user.name}}</span>
     </div>
+
+    <a ng-if="user" class="signOut" ng-click="signOut()">
+      <span class="signOutText">Sign out</span>
+    </a>
   </div>
 
   <div class="filters">
     <md-input-container ng-if="showFilterByChannels" class="filter">
-      <input selectize configuration="filterByChannelsConfiguration">
+      <input class="channelsFilter" selectize configuration="filterByChannelsConfiguration">
     </md-input-container>
 
     <md-input-container ng-if="showFilterByTypes" class="filter">
-      <input selectize configuration="filterByTypeConfiguration">
+      <input class="typesFilter" selectize configuration="filterByTypeConfiguration">
     </md-input-container>
 
-    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filter(s)</md-button>
+    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filters</md-button>
+    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="resetFilters()">Reset filters</md-button>
   </div>
 
   <md-toolbar class="fileListToolbar">

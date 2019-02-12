@@ -4,9 +4,9 @@
   angular.module("slackDeleteFiles")
     .controller('mainController', mainController);
 
-  mainController.$inject = ['$scope', '$http', 'notificationMessage', "slackDeleteFilesConst"];
+  mainController.$inject = ['$scope', '$http', 'notificationMessage', "slackDeleteFilesConst", "$state"];
 
-  function mainController($scope, $http, notificationMessage, slackDeleteFilesConst) {
+  function mainController($scope, $http, notificationMessage, slackDeleteFilesConst, $state) {
     var me = this;
 
     me.$onInit = function () {
@@ -22,11 +22,13 @@
       checkAuthentication();
 
       $scope.signInWithSlack = signInWithSlack;
+      $scope.signOut = signOut;
 
       $scope.deleteSelected = deleteSelected;
       $scope.deleteAllRowsDisplayed = deleteAllRowsDisplayed;
 
       $scope.applyFilters = applyFilters;
+      $scope.resetFilters = resetFilters;
 
       defineGridColumnsAndProperties();
 
@@ -159,6 +161,16 @@
     }
 
     /**
+     * Sign out function
+     * @return {void}
+     */
+    function signOut() {
+      $http.get("/signOut").then(function (response) {
+        $state.reload();
+      });
+    }
+
+    /**
      * Delete selected rows
      * @return {void}
      */
@@ -192,6 +204,22 @@
      * @return {void}
      */
     function applyFilters() {
+      me.grid.api.requestGridData();
+    }
+
+    /**
+     * Reset filters to the default values
+     * @return {void}
+     */
+    function resetFilters() {
+      // reset channels filter
+      var channelsFilterSelectize = angular.element(".channelsFilter").data("selectize");
+      channelsFilterSelectize.setValue("");
+
+      // reset channels filter
+      var typesFilterSelectize = angular.element(".typesFilter").data("selectize");
+      typesFilterSelectize.setValue("");
+
       me.grid.api.requestGridData();
     }
 

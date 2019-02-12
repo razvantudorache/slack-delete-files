@@ -7,6 +7,7 @@
     height: 70px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0 10px;
     .signIn {
       background: url("images/sign_in_with_slack.png");
@@ -35,6 +36,38 @@
           font-family: 'Font Awesome 5 Free';
           content: "\f007";
           font-size: 35px;
+        }
+      }
+    }
+    .signOut {
+      outline: none;
+      text-decoration: none;
+      color: $materialColorLightBlueA700;
+      margin-right: 15px;
+      padding-bottom: 1px;
+      &:after {
+        margin-top: 2px;
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: $materialColorLightBlueA700;
+        transition: width .3s;
+      }
+      &:hover {
+        cursor: pointer;
+        &:after {
+          width: 100%;
+        }
+      }
+      .signOutText {
+        display: flex;
+        &:after {
+          font-family: 'Font Awesome 5 Free';
+          content: "\f2f5";
+          font-size: 20px;
+          font-weight: 600;
+          padding-left: 10px;
         }
       }
     }
@@ -129,4 +162,3 @@
     }
   }
 }
-

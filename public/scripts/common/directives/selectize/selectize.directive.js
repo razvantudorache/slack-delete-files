@@ -10,7 +10,10 @@ function selectizeDirective() {
           configuration: "<"
         },
         link: function ($scope, element) {
-            angular.element(element).selectize($scope.configuration);
+            var $element = angular.element(element);
+            var selectizeInstance = $element.selectize($scope.configuration)[0].selectize;
+
+            $element.data("selectize", selectizeInstance);
         }
     };
 
