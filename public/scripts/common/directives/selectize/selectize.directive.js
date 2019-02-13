@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('slackDeleteFiles')
+angular.module('slackFileBuster')
     .directive("selectize", selectizeDirective);
 
 function selectizeDirective() {

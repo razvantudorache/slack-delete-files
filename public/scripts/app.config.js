@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('slackDeleteFiles')
+  angular.module('slackFileBuster')
     .config(stateConfig)
     .config(httpConfig);
 

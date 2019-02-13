@@ -5,7 +5,7 @@ module.exports = {
     src: ['<%= yeoman.app %>/styles/scss/general.scss',
       '<%= yeoman.app %>/scripts/**/*.scss'
     ],
-    dest: '<%= yeoman.app %>/styles/scss/sdf-all.scss'
+    dest: '<%= yeoman.app %>/styles/scss/slackFileBuster-all.scss'
   },
   options: {
     process: function (src, filepath) {

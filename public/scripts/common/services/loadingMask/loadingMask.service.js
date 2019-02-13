@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('slackDeleteFiles')
+  angular.module('slackFileBuster')
     .service('loadingMaskService', loadingMaskService);
 
   loadingMaskService.$inject = ['$rootScope'];

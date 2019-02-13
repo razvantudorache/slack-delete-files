@@ -1,5 +1,5 @@
 {
-  "name": "slack-delete-files",
+  "name": "slackfilebuster",
   "private": true,
   "scripts": {
     "install-global": "npm install -g bower grunt eslint",

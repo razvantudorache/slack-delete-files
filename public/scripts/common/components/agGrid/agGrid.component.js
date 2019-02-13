@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('slackDeleteFiles')
+  angular.module('slackFileBuster')
     .component('agGrid', {
       templateUrl: 'scripts/common/components/agGrid/agGrid.template.html',
       controller: agGridController,
@@ -98,7 +98,11 @@
 
           $scope.gridOptions.api.setRowData(results);
 
-          $scope.gridOptions.api.hideOverlay();
+          if (results.length) {
+            $scope.gridOptions.api.hideOverlay();
+          } else {
+            $scope.gridOptions.api.showNoRowsOverlay();
+          }
 
           $scope.gridOptions.api.sizeColumnsToFit();
 

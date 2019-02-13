@@ -3,7 +3,7 @@
 module.exports = {
   dist: {
     options: {
-      module: 'slackDeleteFiles',
+      module: 'slackFileBuster',
       htmlmin: '<%= htmlmin.dist.options %>',
       usemin: 'scripts/scripts.js'
     },

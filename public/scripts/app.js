@@ -2,7 +2,7 @@
 (function () {
   agGrid.initialiseAgGridWithAngular1(angular);
   angular
-    .module('slackDeleteFiles', [
+    .module('slackFileBuster', [
       'ngAnimate',
       'ngCookies',
       'ngMessages',

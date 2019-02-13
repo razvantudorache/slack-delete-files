@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  angular.module("slackDeleteFiles")
+  angular.module("slackFileBuster")
     .controller('mainController', mainController);
 
-  mainController.$inject = ['$scope', '$http', 'notyMessageService', "slackDeleteFilesConst", "$state"];
+  mainController.$inject = ['$scope', '$http', 'notyMessageService', "slackFileBusterConst", "$state"];
 
-  function mainController($scope, $http, notyMessageService, slackDeleteFilesConst, $state) {
+  function mainController($scope, $http, notyMessageService, slackFileBusterConst, $state) {
     var me = this;
 
     me.$onInit = function () {
@@ -385,7 +385,7 @@
               notyMessageService.showNotificationMessage("File successfully deleted!", "success");
 
             } else {
-              notyMessageService.showNotificationMessage(slackDeleteFilesConst.DELETE_ERRORS[data.error], "error");
+              notyMessageService.showNotificationMessage(slackFileBusterConst.DELETE_ERRORS[data.error], "error");
             }
 
             me.grid.api.requestGridData();

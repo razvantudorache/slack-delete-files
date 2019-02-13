@@ -15,6 +15,6 @@ module.exports = {
     map: true
   },
   dist: {
-    src: '<%= yeoman.app %>/styles/sdf-all.css'
+    src: '<%= yeoman.app %>/styles/slackFileBuster-all.css'
   }
 };
