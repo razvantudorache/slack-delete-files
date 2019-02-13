@@ -21,12 +21,12 @@ const mimeTypeMap = {
 module.exports = function (app, authSecurity, request) {
     app.get("/filesList", function (req, res) {
 
-        if (authSecurity.getToken()) {
+        if (req.session.token) {
             var filters = JSON.parse(req.query.filters);
             var options = {
                 url: 'https://slack.com/api/files.list',
                 qs: {
-                    token: authSecurity.getToken(),
+                    token: req.session.token,
                     count: 1000
                 },
                 method: "GET"

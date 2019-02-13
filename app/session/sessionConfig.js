@@ -6,6 +6,11 @@ module.exports = function (app) {
   app.use(session({
     secret: '2C44-4D44-WppQ38S',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: null
+    }
   }));
 };

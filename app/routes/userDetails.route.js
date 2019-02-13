@@ -7,7 +7,7 @@ module.exports = function (app, authSecurity, request) {
       url: 'https://slack.com/api/users.info',
       method: 'GET',
       qs: {
-        token: authSecurity.getToken(),
+        token: req.session.token,
         user: req.session.user
       }
     };

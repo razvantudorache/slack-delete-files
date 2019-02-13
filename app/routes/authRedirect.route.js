@@ -2,7 +2,7 @@
 
 module.exports = function (app, authSecurity, request) {
   app.get("/authRedirect", function (req, res) {
-    authSecurity.setCode(req.query.code);
+    req.session.code = req.query.code;
 
     var options = {
       url: 'https://slack.com/api/oauth.access',
@@ -22,7 +22,7 @@ module.exports = function (app, authSecurity, request) {
         console.log(jsonResponse);
         res.send("Error encountered: \n" + JSON.stringify(jsonResponse)).status(200).end();
       } else {
-        authSecurity.setToken(jsonResponse.access_token);
+        req.session.token = jsonResponse.access_token;
 
         req.session.user = jsonResponse.user_id;
 

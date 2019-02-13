@@ -11,8 +11,6 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const request = require('request');
 
-const authSecurity = require("./app/routes/authSecurity");
-
 const RequestQueue = require('node-request-queue');
 const requestQueue = new RequestQueue(40, 100000);
 
@@ -40,25 +38,25 @@ require('./app/session/sessionConfig')(app);
 require("./app/routes/application.route")(path, app);
 
 // route to redirect user after authentication
-require("./app/routes/authRedirect.route")(app, authSecurity, request);
+require("./app/routes/authRedirect.route")(app, request);
 
 // route to hide sign in button at successful authentication
-require("./app/routes/authCheck.route")(app, authSecurity);
+require("./app/routes/authCheck.route")(app);
 
 // route to get files
-require("./app/routes/filesList.route")(app, authSecurity, request);
+require("./app/routes/filesList.route")(app, request);
 
 // route to delete files one by one
-require("./app/routes/delete.route")(app, authSecurity, request);
+require("./app/routes/delete.route")(app, request);
 
 // route to delete multiple files
-require("./app/routes/massDelete.route")(app, authSecurity, requestQueue);
+require("./app/routes/massDelete.route")(app, requestQueue);
 
 // route to get channels list
-require("./app/routes/channelsList.route")(app, authSecurity, request);
+require("./app/routes/channelsList.route")(app, request);
 
 // route to get user details
-require("./app/routes/userDetails.route")(app, authSecurity, request);
+require("./app/routes/userDetails.route")(app, request);
 
 // route to sign out from application
-require("./app/routes/signout.route")(app, authSecurity);
+require("./app/routes/signOut.route")(app);

@@ -4,11 +4,11 @@ module.exports = function (app, authSecurity, request) {
   app.get("/channelsList", function (req, res) {
     var channels = [];
 
-    if (authSecurity.getToken()) {
+    if (req.session.token) {
       var options = {
         url: 'https://slack.com/api/channels.list',
         qs: {
-          token: authSecurity.getToken()
+          token: req.session.token
         },
         method: "GET"
       };

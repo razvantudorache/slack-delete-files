@@ -6,7 +6,7 @@ module.exports = function (app, authSecurity) {
       "success": true
     };
 
-    if (!authSecurity.getCode()) {
+    if (!req.session.code) {
       responseStatus = {
         "success": false
       };

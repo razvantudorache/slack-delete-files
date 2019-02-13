@@ -5,9 +5,6 @@ module.exports = function (app, authSecurity) {
   app.get('/signOut', function (request, response) {
     request.session.destroy();
 
-    authSecurity.setCode("");
-    authSecurity.setToken("");
-
     response.json({success: true});
   });
 };

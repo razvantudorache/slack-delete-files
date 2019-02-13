@@ -11,7 +11,7 @@ module.exports = function (app, authSecurity, requestQueue) {
       var requestOption = {
         url: 'https://slack.com/api/files.delete',
         qs: {
-          token: authSecurity.getToken(),
+          token: req.session.token,
           file: filesId[i]
         },
         method: "POST"
