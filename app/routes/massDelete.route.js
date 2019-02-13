@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, authSecurity, requestQueue) {
+module.exports = function (app, requestQueue) {
   app.post("/massDelete", function (req, response) {
     var filesId = req.body.filesId;
     var numberOfFileProcessed = 0;

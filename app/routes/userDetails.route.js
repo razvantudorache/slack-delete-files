@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, authSecurity, request) {
+module.exports = function (app, request) {
   app.get("/userDetails", function (req, res) {
 
     var options = {

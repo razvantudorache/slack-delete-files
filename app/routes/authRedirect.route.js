@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, authSecurity, request) {
+module.exports = function (app, request) {
   app.get("/authRedirect", function (req, res) {
     req.session.code = req.query.code;
 

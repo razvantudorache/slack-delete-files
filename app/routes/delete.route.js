@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, authSecurity, request) {
+module.exports = function (app, request) {
   app.post("/delete/:fileId", function (req, res) {
     var fileId = req.params.fileId;
 

@@ -18,7 +18,7 @@ const mimeTypeMap = {
     "archive": ["application/x-compressed", "application/zip", "application/octet-stream"]
 };
 
-module.exports = function (app, authSecurity, request) {
+module.exports = function (app, request) {
     app.get("/filesList", function (req, res) {
 
         if (req.session.token) {
