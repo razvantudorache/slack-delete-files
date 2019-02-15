@@ -3,6 +3,7 @@
 (function () {
   angular.module('slackFileBuster')
     .constant('slackFileBusterConst', {
+      MAX_DELETE_FILES: 20,
       DELETE_ERRORS: {
         file_not_found: "The file does not exist, or is not visible to the calling user.",
         file_deleted: "The file has already been deleted.",

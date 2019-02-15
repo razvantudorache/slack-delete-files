@@ -106,7 +106,7 @@
 
           $scope.gridOptions.api.sizeColumnsToFit();
 
-          $rootScope.$broadcast("gridDataReady");
+          $rootScope.$broadcast("gridDataReady", results.length);
 
         });
       } else {

@@ -10,6 +10,9 @@
     var me = this;
 
     me.$onInit = function () {
+      $scope.deleteSelectedRecords = 0;
+      $scope.deleteDisplayedRecords = null;
+
       $scope.showSignInButton = true;
 
       $scope.multipleToolbar = false;
@@ -25,7 +28,7 @@
       $scope.signOut = signOut;
 
       $scope.deleteSelected = deleteSelected;
-      $scope.deleteAllRowsDisplayed = deleteAllRowsDisplayed;
+      $scope.deleteRowsDisplayed = deleteRowsDisplayed;
 
       $scope.applyFilters = applyFilters;
       $scope.resetFilters = resetFilters;
@@ -189,11 +192,15 @@
      * Delete all rows displayed on UI
      * @return {void}
      */
-    function deleteAllRowsDisplayed() {
+    function deleteRowsDisplayed() {
       var filesId = [];
 
       me.grid.api.forEachNode(function (rowNode, index) {
-        filesId.push(rowNode.data.id);
+        if (index < slackFileBusterConst.MAX_DELETE_FILES) {
+          filesId.push(rowNode.data.id);
+        } else {
+          return;
+        }
       });
 
       deleteRows(filesId);
@@ -235,6 +242,8 @@
         }),
 
         Noty.button('YES', 'flatButton', function () {
+          Noty.closeAll();
+
           $http.post("massDelete", {
             filesId: rows
           }).then(function (response) {
@@ -246,7 +255,7 @@
               if (filesWithoutError.length) {
                 notyMessageService.showNotificationMessage("Files successfully deleted!", "success");
               } else {
-                notyMessageService.showNotificationMessage("Some files weren't been deleted!", "error");
+                notyMessageService.showNotificationMessage("Some files have not been deleted!", "error");
               }
 
               me.grid.api.requestGridData();
@@ -255,7 +264,7 @@
         })
       ];
 
-      notyMessageService.showConfirmationMessage("Are you sure you want to delete the selected file?", buttons);
+      notyMessageService.showConfirmationMessage("Are you sure you want to delete the selected file(s)?", buttons);
     }
 
     /**
@@ -296,7 +305,8 @@
           rowSelection: 'multiple',
           getRowNodeId: function (data) {
             return data.id;
-          }
+          },
+          onRowSelected: rowSelectedHandler
         }
       };
 
@@ -365,6 +375,25 @@
     }
 
     /**
+     * Event on row selected
+     * @param {Object} params - grid params
+     * @return {void}
+     */
+    function rowSelectedHandler (params) {
+      var selectedRecords = me.grid.api.getSelectedRows().length;
+      var node = params.node;
+
+      if (selectedRecords > slackFileBusterConst.MAX_DELETE_FILES) {
+        node.setSelected(false);
+
+        notyMessageService.showNotificationMessage("You reached the maximum number of files that can be deleted at once!", "warning");
+      }
+
+      $scope.deleteSelectedRecords = me.grid.api.getSelectedRows().length;
+      $scope.$apply();
+    }
+
+    /**
      * Delete row action
      * @return {void}
      */
@@ -378,6 +407,8 @@
         }),
 
         Noty.button('YES', 'flatButton', function () {
+          Noty.closeAll();
+
           $http.post("delete/" + rowId).then(function (response) {
             var data = response.data;
 
@@ -401,12 +432,14 @@
      * @return {void}
      */
     function initEvents() {
-      $scope.$on("gridDataReady", function () {
+      $scope.$on("gridDataReady", function (event, totalRecords) {
         // display the single toolbar button only when grid is loaded
-        $scope.showToolbar = true;
+        $scope.showToolbar = !!totalRecords;
 
         // show file types filter
         $scope.showFilterByTypes = true;
+
+        $scope.deleteDisplayedRecords = totalRecords > slackFileBusterConst.MAX_DELETE_FILES ? slackFileBusterConst.MAX_DELETE_FILES : totalRecords;
       });
     }
   }
