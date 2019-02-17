@@ -1,4 +1,4 @@
-# Slack fileBuster
+# [Slack fileBuster](https://slackfilebuster.herokuapp.com/)
 
 This project has been inspired by Slack Deletron with some extra features.
 
