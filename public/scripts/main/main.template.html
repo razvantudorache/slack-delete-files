@@ -1,38 +1,43 @@
 <div class="mainContainer">
   <div class="topBar">
+    <div class="logoContainer">
+      <div class="logo"></div>
+      <div class="name">Slack FileBuster</div>
+    </div>
+
     <md-button aria-label="Sign in with Slack" ng-if="showSignInButton" class="signIn" ng-click="signInWithSlack()"></md-button>
+
     <div class="userArea" ng-if="user">
       <img class="userAvatar" ng-if="user.avatar"  src="{{user.avatar}}">
       <span class="userIcon" ng-if="!user.avatar"></span>
 
       <span class="username">{{user.name}}</span>
+
+      <a class="signOut" ng-click="signOut()" title="Sign out"></a>
     </div>
-
-    <a ng-if="user" class="signOut" ng-click="signOut()">
-      <span class="signOutText">Sign out</span>
-    </a>
-  </div>
-
-  <div class="filters">
-    <md-input-container ng-if="showFilterByChannels" class="filter">
-      <input aria-label="Channels filter" class="channelsFilter" selectize configuration="filterByChannelsConfiguration">
-    </md-input-container>
-
-    <md-input-container ng-if="showFilterByTypes" class="filter">
-      <input aria-label="File types filter" class="typesFilter" selectize configuration="filterByTypeConfiguration">
-    </md-input-container>
-
-    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filters</md-button>
-    <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="resetFilters()">Reset filters</md-button>
   </div>
 
   <md-toolbar class="fileListToolbar">
-    <div class="md-toolbar-tools" ng-if="multipleToolbar">
-      <md-button ng-click="deleteSelected()">Delete selected files ({{deleteSelectedRecords}})</md-button>
+    <div class="md-toolbar-tools" >
+      <md-button ng-if="multipleToolbar" ng-click="deleteSelected()">Delete selected files ({{deleteSelectedRecords}})</md-button>
+
+      <md-button ng-if="!multipleToolbar && showToolbar" ng-click="deleteRowsDisplayed()">Delete first {{deleteDisplayedRecords}} files</md-button>
+
+      <span class="filters">
+        <md-input-container ng-if="showFilterByChannels" class="filter">
+          <input aria-label="Channels filter" class="channelsFilter" selectize configuration="filterByChannelsConfiguration">
+        </md-input-container>
+
+        <md-input-container ng-if="showFilterByTypes" class="filter">
+          <input aria-label="File types filter" class="typesFilter" selectize configuration="filterByTypeConfiguration">
+        </md-input-container>
+
+        <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filters</md-button>
+        <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="resetFilters()">Reset filters</md-button>
+      </span>
     </div>
-    <div class="md-toolbar-tools" ng-if="!multipleToolbar && showToolbar">
-      <md-button ng-click="deleteRowsDisplayed()">Delete first {{deleteDisplayedRecords}} files</md-button>
-    </div>
+
+
   </md-toolbar>
 
   <div class="gridContainer">
