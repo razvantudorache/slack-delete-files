@@ -328,10 +328,7 @@ ag-grid {
     width: auto;
     background-color: $materialColorGrey200;
     color: $darkColor;
-    .filters {
-      margin: 0 10px;
-      display: flex;
-      align-items: center;
+    .md-button + .filters {
       &:before {
         content: " ";
         width: 2px;
@@ -339,6 +336,11 @@ ag-grid {
         margin-right: 25px;
         background-color: $materialColorGrey500;
       }
+    }
+    .filters {
+      margin: 0 10px;
+      display: flex;
+      align-items: center;
       .filter {
         height: 36px;
         min-width: 200px;
