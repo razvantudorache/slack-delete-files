@@ -284,12 +284,12 @@ ag-grid {
         width: 48px;
         height: 48px;
         margin-right: 10px;
+        border-radius: 3px;
       }
       .userIcon {
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 3px;
         border: 1px solid $materialColorGrey500;
         background-color: $materialColorGrey500;
         &:before {
