@@ -116,6 +116,8 @@
           // set url to get files list
           me.gridProperties.url = "/filesList";
 
+          me.grid.api.requestGridData();
+
           // get user details
           getUserDetails();
 
