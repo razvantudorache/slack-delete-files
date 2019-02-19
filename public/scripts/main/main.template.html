@@ -41,7 +41,7 @@
   </md-toolbar>
 
   <div class="gridContainer">
-    <ag-grid class="filesList" grid-columns="::main.gridColumns" grid-properties="::main.gridProperties" grid="main.grid"
+    <ag-grid ng-if="showGrid" class="filesList" grid-columns="::main.gridColumns" grid-properties="::main.gridProperties" grid="main.grid"
              row-actions="::main.rowActions">
     </ag-grid>
   </div>
