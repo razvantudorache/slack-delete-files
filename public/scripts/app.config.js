@@ -26,6 +26,8 @@
   httpConfig.$inject = ['$httpProvider'];
 
   function httpConfig($httpProvider) {
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+
     $httpProvider.defaults.headers.common = {
       'Content-Type': 'application/json; charset=utf-8',
       'Response-Type': 'json'
