@@ -52,6 +52,10 @@
           {
             "text": "All channels",
             "value": ""
+          },
+          {
+            "text": "My files",
+            "value": "my"
           }
         ],
         items: [""],
@@ -295,6 +299,17 @@
           field: 'name',
           minWidth: 150,
           cellRenderer: fileCellRenderer
+        },
+        {
+          headerName: 'Size',
+          field: 'size',
+          minWidth: 200,
+          maxWidth: 200,
+          filter: "agTextColumnFilter",
+          filterParams: {
+            newRowsAction: "keep",
+            suppressAndOrCondition: true
+          }
         }
       ];
       me.gridProperties = {
