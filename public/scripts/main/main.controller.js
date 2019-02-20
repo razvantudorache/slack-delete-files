@@ -310,6 +310,13 @@
             newRowsAction: "keep",
             suppressAndOrCondition: true
           }
+        },
+        {
+          headerName: 'Created date',
+          field: 'date',
+          minWidth: 200,
+          maxWidth: 300,
+          sortable: true
         }
       ];
       me.gridProperties = {

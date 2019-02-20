@@ -19,6 +19,7 @@ const mimeTypeMap = {
 };
 
 const bytes = require('bytes');
+const moment = require('moment');
 
 module.exports = function (app, request) {
     app.get("/filesList", function (req, res) {
@@ -95,6 +96,7 @@ function storeFile(file, filesArray) {
         thumb: file.thumb_64 || file.thumb_video,
         size: bytes(file.size, {
             unitSeparator: " "
-        })
+        }),
+        date: moment.utc(file.created * 1000).format("YYYY-MM-DD")
     });
 }
