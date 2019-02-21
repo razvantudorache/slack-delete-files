@@ -76,6 +76,7 @@ module.exports = function (app, request) {
                 res.json({
                     results: files,
                     totalSize: bytes(totalSize, {
+                        decimalPlaces: 1,
                         unitSeparator: " "
                     })
                 });
@@ -94,6 +95,7 @@ function storeFile(file, filesArray) {
         id: file.id,
         name: file.name,
         thumb: file.thumb_64 || file.thumb_video,
+        sizeBytes: file.size,
         size: bytes(file.size, {
             unitSeparator: " "
         }),

@@ -95,6 +95,7 @@
           }
         }).then(function (response) {
           var results = response.data.results;
+          var totalFilesSize = response.data.totalSize;
 
           $scope.gridOptions.api.setRowData(results);
 
@@ -106,7 +107,7 @@
 
           $scope.gridOptions.api.sizeColumnsToFit();
 
-          $rootScope.$broadcast("gridDataReady", results.length);
+          $rootScope.$broadcast("gridDataReady", results.length, totalFilesSize);
 
         });
       } else {

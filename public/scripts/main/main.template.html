@@ -35,6 +35,8 @@
         <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="applyFilters()">Apply filters</md-button>
         <md-button ng-show="showFilterByChannels || showFilterByTypes" ng-click="resetFilters()">Reset filters</md-button>
       </span>
+
+      <span class="totalSizeContainer" ng-if="totalSize">Total size: {{totalSize}}</span>
     </div>
 
 

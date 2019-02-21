@@ -307,7 +307,6 @@
           maxWidth: 200,
           filter: "agTextColumnFilter",
           filterParams: {
-            newRowsAction: "keep",
             suppressAndOrCondition: true
           }
         },
@@ -332,7 +331,8 @@
           getRowNodeId: function (data) {
             return data.id;
           },
-          onRowSelected: rowSelectedHandler
+          onRowSelected: rowSelectedHandler,
+          onFilterChanged: filterChangedHandler
         }
       };
 
@@ -420,6 +420,25 @@
     }
 
     /**
+     * Update number of files to be deleted after filter is applied
+     * @param {Object} params - grid params
+     * @return {void}
+     */
+    function filterChangedHandler (params) {
+      var filteredRows = 0;
+      var totalSize = 0;
+
+      params.api.forEachNodeAfterFilter(function(rowNode, index) {
+        filteredRows++;
+
+        totalSize += rowNode.data.sizeBytes;
+      });
+
+      $scope.totalSize = prettysize(totalSize, false, false);
+      $scope.deleteDisplayedRecords = filteredRows > slackFileBusterConst.MAX_DELETE_FILES ? slackFileBusterConst.MAX_DELETE_FILES : filteredRows;
+    }
+
+    /**
      * Delete row action
      * @return {void}
      */
@@ -458,12 +477,14 @@
      * @return {void}
      */
     function initEvents() {
-      $scope.$on("gridDataReady", function (event, totalRecords) {
+      $scope.$on("gridDataReady", function (event, totalRecords, totalFilesSize) {
         // display the single toolbar button only when grid is loaded
         $scope.showToolbar = !!totalRecords;
 
         // show file types filter
         $scope.showFilterByTypes = true;
+
+        $scope.totalSize = totalFilesSize;
 
         $scope.deleteDisplayedRecords = totalRecords > slackFileBusterConst.MAX_DELETE_FILES ? slackFileBusterConst.MAX_DELETE_FILES : totalRecords;
       });

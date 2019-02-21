@@ -21,7 +21,8 @@
     "noty": "3.1.4",
     "ag-grid": "20.0.0",
     "jquery-throttle-debounce": "*",
-    "selectize": "0.12.6"
+    "selectize": "0.12.6",
+    "prettysize-bower": "prettysize#*"
   },
   "appPath": "public",
   "moduleName": "slackFileBuster",
